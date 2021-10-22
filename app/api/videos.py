@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Video, db
 from app.forms import VideoForm
 from datetime import datetime
-from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
+from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
 
 video_routes = Blueprint('videos', __name__)
 
@@ -58,3 +58,17 @@ def edit_video(id):
     videos.description = data['description']
     db.session.commit()
     return videos.to_dict()
+
+@video_routes.route('/<int:id>', methods=['DELETE'])
+def delete_video(id):
+    deleted_video = Video.query.get(id)
+    print('This is url to delete', deleted_video.video_url)
+    if not delete_video:
+        return 'Video does not exist'
+
+    video_url = deleted_video.video_url
+    delete_from_s3(video_url)
+
+    db.session.delete(deleted_video)
+    db.session.commit()
+

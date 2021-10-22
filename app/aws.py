@@ -13,6 +13,18 @@ s3 = boto3.client(
    aws_secret_access_key=os.environ.get("S3_SECRET")
 )
 
+def delete_from_s3(video_url):
+    split_url = video_url.split(S3_LOCATION)
+    if len(split_url) == 2:
+        filename = video_url.split(S3_LOCATION)[1]
+    else:
+        # filename not from s3
+        return {'ok': True}
+    try:
+        s3.delete_object(Bucket=BUCKET_NAME, Key=filename)
+        return {'ok': True}
+    except Exception as e:
+        return {'errors': str(e)}
 
 def allowed_file(filename):
     return "." in filename and \
