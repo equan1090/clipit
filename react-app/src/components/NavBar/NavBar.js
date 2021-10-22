@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from './auth/LogoutButton';
+import LogoutButton from '../auth/LogoutButton';
+import UploadModal from '../UploadModal';
 
 const NavBar = () => {
   return (
@@ -29,6 +30,9 @@ const NavBar = () => {
         </li>
         <li>
           <LogoutButton />
+        </li>
+        <li>
+          <UploadModal />
         </li>
       </ul>
     </nav>

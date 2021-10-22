@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Modal } from '../../context/Modal';
-
+import UploadForm from './UploadForm';
 function UploadModal(){
     const [showModal, setShowModal] = useState(false)
 
@@ -11,7 +11,7 @@ function UploadModal(){
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    need to put in
+                    <UploadForm />
                 </Modal>
             )}
         </div>
