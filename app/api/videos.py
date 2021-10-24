@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Video, db
-from app.forms import VideoForm
+from app.models import Video, db, Comment
+from app.forms import VideoForm, CommentForm
 from datetime import datetime
 from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
 
@@ -53,7 +53,6 @@ def edit_video(id):
 
     form['csrf_token'].data = request.cookies['csrf_token']
     data = form.data
-    print("THIS IS MY DATA~~~~~~~~~~~", data)
     videos.title = data['title']
     videos.description = data['description']
     db.session.commit()
@@ -72,3 +71,22 @@ def delete_video(id):
     db.session.delete(deleted_video)
     db.session.commit()
 
+@video_routes.route('/comments', methods=['POST'])
+def create_comment():
+    form = CommentForm()
+    data = form.data
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        new_comment = Comment(
+            content=data['content'],
+            video_id=data['video_id'],
+            user_id=data['user_id']
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        videos = Video.query.all()
+        return {"videos": [video.to_dict() for video in videos]}
+    else:
+        return "Invalid Data"
+        

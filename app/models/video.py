@@ -52,5 +52,7 @@ class Video(db.Model):
             'user_id': self.user_id,
             'video_url': self.video_url,
             'created_at': self.created_at,
-            'title': self.title
+            'title': self.title,
+            # 'users': self.users.to_dict(),
+            'comments': {"comments": [comment.to_dict() for comment in self.comments]}
         }
