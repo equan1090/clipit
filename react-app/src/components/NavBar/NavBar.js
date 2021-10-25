@@ -3,15 +3,33 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import UploadModal from '../UploadModal';
-
+import './NavBar.css'
 const NavBar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
+    <nav className='top-nav-container'>
+      <div className='top-nav-menu'>
+        <div className='top-nav-left'>
           <NavLink to='/' exact={true} activeClassName='active'>
             Home
           </NavLink>
+          <UploadModal />
+        </div>
+        <div className='top-nav-middle'>
+          <input type="text" placeholder='Search...' />
+        </div>
+        <div className='top-nav-left'>
+          <NavLink to='/sign-up' exact={true} activeClassName='active'>
+            Sign Up
+          </NavLink>
+          <NavLink to='/login' exact={true} activeClassName='active'>
+            Login
+          </NavLink>
+          <LogoutButton />
+        </div>
+      </div>
+      {/* <ul>
+        <li>
+
         </li>
         <li>
           <NavLink to='/login' exact={true} activeClassName='active'>
@@ -31,10 +49,8 @@ const NavBar = () => {
         <li>
           <LogoutButton />
         </li>
-        <li>
-          <UploadModal />
-        </li>
-      </ul>
+
+      </ul> */}
     </nav>
   );
 }

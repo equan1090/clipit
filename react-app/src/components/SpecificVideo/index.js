@@ -3,26 +3,28 @@ import {useSelector, useDispatch} from 'react-redux';
 import { deleteVideoThunk, specificVideoThunk } from '../../store/video';
 import { useParams, useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player'
-import { addCommentThunk, loadCommentThunk } from '../../store/comment';
-
+import { addCommentThunk, getCommentThunk } from '../../store/comment';
+import './SpecificVideo.css'
 const SpecificVideo = () => {
     const user = useSelector((state) => state.session.user);
     const videos = useSelector((state) => state.videos?.videos)
+    const comments = useSelector((state) => state.comments)
     const {videoId} = useParams();
     const dispatch = useDispatch();
     const history = useHistory()
     const [commentContent, setCommentContent] = useState('')
 
-    let comments = videos?.comments?.comments
+    console.log(comments)
 
 
     // Gets
     useEffect(() => {
+        dispatch(getCommentThunk(videoId))
         dispatch(specificVideoThunk(videoId))
     }, [dispatch, videoId])
 
     const handleDeleteComment = (commentId) => {
-        
+
     }
 
     const handleDeleteVideo = (videoId) => {
@@ -37,7 +39,7 @@ const SpecificVideo = () => {
             video_id: videoId,
             content: commentContent
         }
-        dispatch(addCommentThunk(newComment))
+        dispatch(addCommentThunk(newComment, videoId))
         setCommentContent('')
     }
 
@@ -67,8 +69,8 @@ const SpecificVideo = () => {
 
     return (
         <div>
-            <div>
-                {videos?.title}
+            <div className='content-container'>
+                <h1>{videos?.title}</h1>
                 <ReactPlayer
                 controls={true}
                 url={videos?.video_url} />
@@ -95,5 +97,6 @@ const SpecificVideo = () => {
         </div>
     )
 }
+
 
 export default SpecificVideo;

@@ -81,8 +81,8 @@ def get_comments():
     }
 
 #/videos/comments
-@video_routes.route('/comments', methods=['POST'])
-def create_comment():
+@video_routes.route('/<int:videoId>/comments', methods=['POST'])
+def create_comment(videoId):
     form = CommentForm()
     data = form.data
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -95,8 +95,8 @@ def create_comment():
         )
         db.session.add(new_comment)
         db.session.commit()
-        videos = Video.query.all()
-        return {"videos": [video.to_dict() for video in videos]}
+        comments = Comment.query.filter(Comment.video_id == videoId).all()
+        return {"comments": [comment.to_dict() for comment in comments]}
     else:
         return "Invalid Data"
 
@@ -107,3 +107,10 @@ def delete_comment():
 
     db.session.delete(deleted_comment)
     db.session.commit()
+
+
+@video_routes.route('/<int:id>/comments')
+def get_comment(id):
+    comments = Comment.query.filter(Comment.video_id == id).all()
+    return {"comments": [comment.to_dict() for comment in comments]}
+

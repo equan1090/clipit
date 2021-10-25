@@ -6,7 +6,7 @@ import videos from './video'
 const rootReducer = combineReducers({
   session,
   videos,
-  // comments: commentReducer
+  comments: commentReducer
 });
 
 
