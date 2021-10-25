@@ -60,7 +60,7 @@ export const specificVideoThunk = (id) => async(dispatch) => {
         const data = await res.json();
         dispatch(specificVideoAction(data));
     } else{
-        return ["An error occured. Please try again"]
+        return "An error occured. Please try again"
     }
     return res
 }

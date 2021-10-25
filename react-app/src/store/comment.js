@@ -1,24 +1,24 @@
 const ADD_COMMENT = 'ADD'
-const LOAD_COMMENT = 'LOAD'
+const DELETE_COMMENT = 'DELETE'
 
-const loadCommentAction = (comments) => ({
-    type: LOAD_COMMENT,
-    payload: comments
-})
 
 const addCommentAction = (comments) => ({
     type: ADD_COMMENT,
     payload: comments
 })
 
-export const loadCommentThunk = (id) => async(dispatch) => {
-    const res = await fetch(`/api/videos/${id}/comments`)
-    if (res.ok) {
-        const comments = await res.json();
-        dispatch(loadCommentAction(comments))
-    }else {
-        return "Failed to get video's comments"
-    }
+
+// const loadCommentAction = (comments) => ({
+//     type: LOAD_COMMENT,
+//     payload: comments
+// })
+
+export const deleteCommentThunk = (id) => async(dispatch) => {
+    const res = await fetch('/api/videos/comments', {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({id})
+    })
 }
 
 export const addCommentThunk = (comment) => async (dispatch) => {
@@ -35,6 +35,19 @@ export const addCommentThunk = (comment) => async (dispatch) => {
     }
 }
 
+// export const loadCommentThunk = (videoId) => async(dispatch) => {
+//     const res = await fetch('/api/videos/comments', {
+//         method: "PATCH",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({videoId})
+//     })
+//     if(res.ok) {
+//         const comments = await res.json()
+//         dispatch(loadCommentAction(comments))
+//     }
+
+// }
+
 const initialState = {};
 
 function commentReducer(state = initialState, action) {
@@ -45,6 +58,8 @@ function commentReducer(state = initialState, action) {
                 newState,
                 comments: action.payload
             }
+        // case LOAD_COMMENT:
+        //     return action.payload
         default:
             return state;
     }

@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { deleteVideoThunk, specificVideoThunk } from '../../store/video';
 import { useParams, useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player'
-import { addCommentThunk } from '../../store/comment';
+import { addCommentThunk, loadCommentThunk } from '../../store/comment';
 
 const SpecificVideo = () => {
     const user = useSelector((state) => state.session.user);
@@ -13,14 +13,23 @@ const SpecificVideo = () => {
     const history = useHistory()
     const [commentContent, setCommentContent] = useState('')
 
+    let comments = videos?.comments?.comments
+
+
+    // Gets
     useEffect(() => {
         dispatch(specificVideoThunk(videoId))
-    }, [dispatch], videoId)
+    }, [dispatch, videoId])
+
+    const handleDeleteComment = (commentId) => {
+        
+    }
 
     const handleDeleteVideo = (videoId) => {
         dispatch(deleteVideoThunk(videoId))
     }
 
+    // Submits form and sends the comment to the store
     const handleSubmit = (e) => {
         e.preventDefault()
         const newComment = {
@@ -29,6 +38,7 @@ const SpecificVideo = () => {
             content: commentContent
         }
         dispatch(addCommentThunk(newComment))
+        setCommentContent('')
     }
 
     function EditDeleteVideo(){
@@ -74,6 +84,13 @@ const SpecificVideo = () => {
                     />
                     <button type='submit'>Submit</button>
                 </form>
+            </div>
+            <div className='comment-list'>
+                <ul>
+                    {comments?.map((comment) => (
+                        <p key={comment.id}>{comment.content}</p>
+                    ))}
+                </ul>
             </div>
         </div>
     )

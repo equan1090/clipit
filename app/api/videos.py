@@ -71,6 +71,16 @@ def delete_video(id):
     db.session.delete(deleted_video)
     db.session.commit()
 
+# GET REQUEST
+@video_routes.route('/comments', methods=['PATCH'])
+def get_comments():
+    body = request.json
+    comments = Comment.query.filter(Comment.video_id == body['videoId']).all()
+    return {
+        'comments': [comment.to_dict() for comment in comments]
+    }
+
+#/videos/comments
 @video_routes.route('/comments', methods=['POST'])
 def create_comment():
     form = CommentForm()
@@ -89,4 +99,11 @@ def create_comment():
         return {"videos": [video.to_dict() for video in videos]}
     else:
         return "Invalid Data"
-        
+
+@video_routes.route('/comments', methods=["DELETE"])
+def delete_comment():
+    body = request.json
+    deleted_comment = Comment.query.filter(Comment.id == body['id'])
+
+    db.session.delete(deleted_comment)
+    db.session.commit()
