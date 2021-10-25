@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {useSelector, useDispatch} from 'react-redux';
 import { deleteVideoThunk, specificVideoThunk } from '../../store/video';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, NavLink } from 'react-router-dom';
 import ReactPlayer from 'react-player'
 import { addCommentThunk, getCommentThunk } from '../../store/comment';
 import './SpecificVideo.css'
@@ -46,7 +46,7 @@ const SpecificVideo = () => {
     function EditDeleteVideo(){
         if (user && videos?.user_id === user?.id) {
             return (
-                <div>
+                <div className='video-btn-container'>
                     <button className='edit-btn'
                     type='button'
                     onClick={() => {
@@ -90,7 +90,12 @@ const SpecificVideo = () => {
             <div className='comment-list'>
                 <ul>
                     {comments?.map((comment) => (
-                        <p key={comment.id}>{comment.content}</p>
+                        <div className='single-comment' key={comment.id}>
+                            <p className='comment-user'>
+                                <NavLink to={`/users/${comment?.users?.id}`}>{comment?.users?.username}</NavLink>
+                            </p>
+                            <p className='comment-content'>{comment.content}</p>
+                        </div>
                     ))}
                 </ul>
             </div>
