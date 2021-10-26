@@ -1,8 +1,8 @@
 from flask import Blueprint, request
-from flask_login import login_required, current_user
+from flask_login import login_required
 from app.models import Video, db, Comment
 from app.forms import VideoForm, CommentForm
-from datetime import datetime
+
 from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
 from sqlalchemy import desc
 video_routes = Blueprint('videos', __name__)
@@ -24,7 +24,7 @@ def get_all_video():
 def upload_video():
 
     if "video" not in request.files:
-        return {"errors": "image required"}, 400
+        return {"errors": "video required"}, 400
 
     video = request.files["video"]
 

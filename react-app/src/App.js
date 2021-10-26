@@ -12,7 +12,7 @@ import UploadForm from './components/UploadModal/UploadForm';
 import SpecificVideo from './components/SpecificVideo';
 import EditVideo from './components/EditVideo';
 import UploadModal from './components/UploadModal';
-
+import Homepage from './components/Homepage';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <Homepage />
         </ProtectedRoute>
 
       </Switch>
