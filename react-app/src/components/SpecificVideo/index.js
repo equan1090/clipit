@@ -91,9 +91,14 @@ const SpecificVideo = () => {
                 <ul>
                     {comments?.map((comment) => (
                         <div className='single-comment' key={comment.id}>
-                            <p className='comment-user'>
-                                <NavLink to={`/users/${comment?.users?.id}`}>{comment?.users?.username}</NavLink>
-                            </p>
+                            <div className='comment-user'>
+                                <div className='profile-pic-container'>
+                                    <NavLink to={`/users/${comment?.users?.id}`}><img className='profile-pic' src={comment?.users?.avatar_url} alt="" /></NavLink>
+                                </div>
+                                <div className='username'>
+                                    <NavLink to={`/users/${comment?.users?.id}`}>{comment?.users?.username}</NavLink>
+                                </div>
+                            </div>
                             <p className='comment-content'>{comment.content}</p>
                         </div>
                     ))}
