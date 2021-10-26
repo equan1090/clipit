@@ -3,10 +3,10 @@ from datetime import datetime
 
 def seed_videos():
     vid1 = Video(
-        title='Title',
-        video_url='myurl',
-        description='This is just a test',
-        likes_count=0,
+        title='Pink Ward Shaco',
+        video_url='https://clipitcapstone.s3.us-west-1.amazonaws.com/yt5s.com-Pink+Ward+_The+SHACO+God_+Montage+-+League+of+Legends.mp4',
+        description='Some of pinkwards greatest outplays and 200IQ moments',
+        likes_count=500,
         comment_count=0,
         created_at=datetime.now(),
         user_id=1
