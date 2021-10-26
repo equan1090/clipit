@@ -1,7 +1,7 @@
 const CREATE_VIDEO = 'CREATE/VIDEO'
-const GET_SPEICIFIC_VIDEO = 'LOAD'
+const GET_SPEICIFIC_VIDEO = 'LOAD/VIDEO'
 const EDIT_VIDEO = 'EDIT'
-const DELETE_VIDEO = "DELETE"
+const DELETE_VIDEO = "DELETE/VIDEO"
 
 
 const editVideoAction = (video) => ({
@@ -60,7 +60,7 @@ export const specificVideoThunk = (id) => async(dispatch) => {
         const data = await res.json();
         dispatch(specificVideoAction(data));
     } else{
-        return ["An error occured. Please try again"]
+        return "An error occured. Please try again"
     }
     return res
 }
@@ -89,10 +89,9 @@ function videoReducer(state = initialState, action) {
     const newState = {...state}
     switch (action.type) {
         case CREATE_VIDEO:
-            return {
-                newState,
-                videos: action.payload
-            }
+
+            return action.payload.video
+
         case GET_SPEICIFIC_VIDEO:
             return {
                 videos: action.payload

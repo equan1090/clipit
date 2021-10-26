@@ -4,7 +4,7 @@ from app.models import Video, db, Comment
 from app.forms import VideoForm, CommentForm
 from datetime import datetime
 from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
-
+from sqlalchemy import desc
 video_routes = Blueprint('videos', __name__)
 
 @video_routes.route('/<int:id>')
@@ -71,8 +71,18 @@ def delete_video(id):
     db.session.delete(deleted_video)
     db.session.commit()
 
-@video_routes.route('/comments', methods=['POST'])
-def create_comment():
+# GET REQUEST
+@video_routes.route('/comments', methods=['PATCH'])
+def get_comments():
+    body = request.json
+    comments = Comment.query.filter(Comment.video_id == body['videoId']).all()
+    return {
+        'comments': [comment.to_dict() for comment in comments]
+    }
+
+#/videos/comments
+@video_routes.route('/<int:videoId>/comments', methods=['POST'])
+def create_comment(videoId):
     form = CommentForm()
     data = form.data
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -85,8 +95,22 @@ def create_comment():
         )
         db.session.add(new_comment)
         db.session.commit()
-        videos = Video.query.all()
-        return {"videos": [video.to_dict() for video in videos]}
+        comments = Comment.query.filter(Comment.video_id == videoId).all()
+        return {"comments": [comment.to_dict() for comment in comments]}
     else:
         return "Invalid Data"
-        
+
+@video_routes.route('/comments', methods=["DELETE"])
+def delete_comment():
+    body = request.json
+    deleted_comment = Comment.query.filter(Comment.id == body['id'])
+
+    db.session.delete(deleted_comment)
+    db.session.commit()
+
+
+@video_routes.route('/<int:id>/comments')
+def get_comment(id):
+    comments = Comment.query.filter(Comment.video_id == id).all()
+    return {"comments": [comment.to_dict() for comment in comments]}
+

@@ -1,0 +1,14 @@
+ul {
+    list-style: none;
+}
+
+.top-nav-menu {
+    display: flex;
+    justify-content: space-between;
+}
+.top-nav-left {
+    display: flex;
+    margin-left: 1rem;
+}
+
+

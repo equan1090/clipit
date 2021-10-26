@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import {useSelector, useDispatch} from 'react-redux';
 import { deleteVideoThunk, specificVideoThunk } from '../../store/video';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, NavLink } from 'react-router-dom';
 import ReactPlayer from 'react-player'
-import { addCommentThunk } from '../../store/comment';
-
+import { addCommentThunk, getCommentThunk } from '../../store/comment';
+import './SpecificVideo.css'
 const SpecificVideo = () => {
     const user = useSelector((state) => state.session.user);
     const videos = useSelector((state) => state.videos?.videos)
+    const comments = useSelector((state) => state.comments)
     const {videoId} = useParams();
     const dispatch = useDispatch();
     const history = useHistory()
     const [commentContent, setCommentContent] = useState('')
 
+    console.log(comments)
+
+
+    // Gets
     useEffect(() => {
+        dispatch(getCommentThunk(videoId))
         dispatch(specificVideoThunk(videoId))
-    }, [dispatch], videoId)
+    }, [dispatch, videoId])
+
+    const handleDeleteComment = (commentId) => {
+
+    }
 
     const handleDeleteVideo = (videoId) => {
         dispatch(deleteVideoThunk(videoId))
     }
 
+    // Submits form and sends the comment to the store
     const handleSubmit = (e) => {
         e.preventDefault()
         const newComment = {
@@ -28,13 +39,14 @@ const SpecificVideo = () => {
             video_id: videoId,
             content: commentContent
         }
-        dispatch(addCommentThunk(newComment))
+        dispatch(addCommentThunk(newComment, videoId))
+        setCommentContent('')
     }
 
     function EditDeleteVideo(){
         if (user && videos?.user_id === user?.id) {
             return (
-                <div>
+                <div className='video-btn-container'>
                     <button className='edit-btn'
                     type='button'
                     onClick={() => {
@@ -57,8 +69,8 @@ const SpecificVideo = () => {
 
     return (
         <div>
-            <div>
-                {videos?.title}
+            <div className='content-container'>
+                <h1>{videos?.title}</h1>
                 <ReactPlayer
                 controls={true}
                 url={videos?.video_url} />
@@ -75,8 +87,26 @@ const SpecificVideo = () => {
                     <button type='submit'>Submit</button>
                 </form>
             </div>
+            <div className='comment-list'>
+                <ul>
+                    {comments?.map((comment) => (
+                        <div className='single-comment' key={comment.id}>
+                            <div className='comment-user'>
+                                <div className='profile-pic-container'>
+                                    <NavLink to={`/users/${comment?.users?.id}`}><img className='profile-pic' src={comment?.users?.avatar_url} alt="" /></NavLink>
+                                </div>
+                                <div className='username'>
+                                    <NavLink to={`/users/${comment?.users?.id}`}>{comment?.users?.username}</NavLink>
+                                </div>
+                            </div>
+                            <p className='comment-content'>{comment.content}</p>
+                        </div>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 }
+
 
 export default SpecificVideo;
