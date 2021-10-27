@@ -2,11 +2,17 @@ const CREATE_VIDEO = 'CREATE/VIDEO'
 const GET_SPEICIFIC_VIDEO = 'LOAD/VIDEO'
 const EDIT_VIDEO = 'EDIT'
 const DELETE_VIDEO = "DELETE/VIDEO"
+const GET_ALL = 'GET/VIDEO'
 
 
 const editVideoAction = (video) => ({
     type: EDIT_VIDEO,
     payload: video
+})
+
+const getAllVideoAction = (videos) => ({
+    type: GET_ALL,
+    payload: videos
 })
 
 const createVideoAction = (video) => ({
@@ -18,6 +24,16 @@ const specificVideoAction = (video) => ({
     type: GET_SPEICIFIC_VIDEO,
     payload: video
 })
+
+export const getAllVideoThunk = () => async (dispatch) => {
+    const res = await fetch('/api/videos');
+    if(res.ok){
+        const videos = await res.json();
+        dispatch(getAllVideoAction(videos))
+    } else {
+        return "Cannot get all videos"
+    }
+}
 
 export const deleteVideoThunk = (id) => async (dispatch) => {
     const response = await fetch(`/api/videos/${id}`, {
@@ -88,6 +104,10 @@ const initialState = {};
 function videoReducer(state = initialState, action) {
     const newState = {...state}
     switch (action.type) {
+
+        case GET_ALL:
+            return action.payload.videos
+
         case CREATE_VIDEO:
 
             return action.payload.video

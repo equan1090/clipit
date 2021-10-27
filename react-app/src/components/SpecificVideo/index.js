@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {useSelector, useDispatch} from 'react-redux';
 import { deleteVideoThunk, specificVideoThunk } from '../../store/video';
-import { useParams, useHistory, NavLink } from 'react-router-dom';
+import { useParams, useHistory, NavLink, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player'
 import { addCommentThunk, getCommentThunk } from '../../store/comment';
 import './SpecificVideo.css'
@@ -13,8 +13,9 @@ const SpecificVideo = () => {
     const dispatch = useDispatch();
     const history = useHistory()
     const [commentContent, setCommentContent] = useState('')
+    const [videoOwner, setVideoOwner] = useState({})
+    console.log('owner of video',videoOwner)
 
-    console.log(comments)
 
 
     // Gets
@@ -23,6 +24,16 @@ const SpecificVideo = () => {
         dispatch(specificVideoThunk(videoId))
     }, [dispatch, videoId])
 
+    useEffect(() => {
+        if (!videos?.user_id){
+            return;
+        }
+        (async () => {
+            const response = await fetch(`/api/users/${videos.user_id}`);
+            const videoOwner = await response.json();
+            setVideoOwner(videoOwner);
+        })();
+    }, [videos?.user_id])
     const handleDeleteComment = (commentId) => {
 
     }
@@ -41,6 +52,7 @@ const SpecificVideo = () => {
         }
         dispatch(addCommentThunk(newComment, videoId))
         setCommentContent('')
+    
     }
 
     function EditDeleteVideo(){
@@ -71,6 +83,16 @@ const SpecificVideo = () => {
         <div>
             <div className='content-container'>
                 <h1>{videos?.title}</h1>
+                <div className='comment-user'>
+                    <div className='owner-pic'>
+                        <Link to={`/users/${videoOwner.id}`}><img className='profile-pic' src={videoOwner.avatar_url} alt="" /></Link>
+                    </div>
+                    <div className='username'>
+                       <Link to={`/users/${videoOwner.id}`}>
+                        {videoOwner.username}
+                        </Link>
+                    </div>
+                </div>
                 <ReactPlayer
                 controls={true}
                 url={videos?.video_url} />
@@ -82,7 +104,9 @@ const SpecificVideo = () => {
                 <form onSubmit={handleSubmit}>
                     <textarea cols="50" rows="5" placeholder='Comment'
                     value={commentContent}
-                    onChange={(e) => setCommentContent(e.target.value)}
+                    required={true}
+                    onChange={(e) => setCommentContent(e.target.value)
+                    }
                     />
                     <button type='submit'>Submit</button>
                 </form>

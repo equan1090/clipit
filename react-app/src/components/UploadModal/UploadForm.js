@@ -29,12 +29,13 @@ const UploadForm = () => {
             method: "POST",
             body: formData
         });
+        
         if (res.ok) {
             const data = await res.json()
             setVideoLoading(false)
             history.push(`/videos/${data?.id}`)
         } else{
-            console.log('res is not ok')
+
             setVideoLoading(false)
             const {errors} = res;
             setErrors(errors);
