@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { getAllVideoThunk } from "../../store/video";
-import './NewVideoPage.css'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import VideoCard from "../VideoCard";
 import NavigationTabs from "../NavigationTabs";
+import { popularVideoThunk } from "../../store/video";
 
-function NewVideoPage() {
+function PopularVideoPage() {
     const dispatch = useDispatch()
-    const videos = useSelector((state) => state?.videos?.videos?.videos)
-
+    const videos = useSelector((state) => state.videos.videos?.videos)
+    console.log('', videos)
     useEffect(() => {
-        dispatch(getAllVideoThunk())
+        dispatch(popularVideoThunk())
     }, [dispatch])
 
-
-    return (
+    console.log()
+    return(
         <>
             <NavigationTabs />
             <div className='main-content-area'>
@@ -28,7 +26,6 @@ function NewVideoPage() {
         </>
     )
 
-
 }
 
-export default NewVideoPage;
+export default PopularVideoPage;

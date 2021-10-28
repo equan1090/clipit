@@ -14,6 +14,7 @@ import EditVideo from './components/EditVideo';
 import UploadModal from './components/UploadModal';
 import Homepage from './components/Homepage';
 import NewVideoPage from './components/NewVideoPage';
+import PopularVideoPage from './components/PopularVideoPage';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
         </Route>
         <Route path='/videos/popular'>
           <NavBar />
+          <PopularVideoPage />
         </Route>
         <Route path='/videos/:videoId' exact={true}>
           <NavBar />

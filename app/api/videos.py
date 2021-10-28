@@ -12,6 +12,14 @@ def get_video(id):
     videos = Video.query.filter(Video.id == id).first()
     return videos.to_dict()
 
+@video_routes.route('/popular')
+def get_popular():
+    videos = Video.query
+    videos = videos.order_by(Video.likes_count.desc()).all()
+    return {
+        'videos': [video.to_dict() for video in videos]
+    }
+
 @video_routes.route('')
 def get_all_video():
     videos = Video.query
@@ -101,14 +109,15 @@ def create_comment(videoId):
     else:
         return "Invalid Data"
 
-@video_routes.route('/comments', methods=["DELETE"])
-def delete_comment():
+@video_routes.route('/<int:videoId>/comments', methods=["DELETE"])
+def delete_comment(videoId):
     body = request.json
 
     deleted_comment = Comment.query.filter(Comment.id == body['id']).first()
+    print('\n\n\n\nThis is my body\n\n\n\n',body)
     db.session.delete(deleted_comment)
     db.session.commit()
-    comments = Comment.query.all()
+    comments = Comment.query.filter(Comment.video_id == videoId).all()
     return {'comments': [comment.to_dict() for comment in comments]}
 
 

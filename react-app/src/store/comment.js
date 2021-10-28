@@ -17,14 +17,14 @@ const loadCommentAction = (comments) => ({
   payload: comments,
 });
 
-export const deleteCommentThunk = (id) => async (dispatch) => {
-  const res = await fetch("/api/videos/comments", {
+export const deleteCommentThunk = (id, videoId) => async (dispatch) => {
+  const res = await fetch(`/api/videos/${videoId}/comments`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id }),
   });
   if (res.ok) {
-    
+
     let comment = await res.json();
     dispatch(loadCommentAction(comment));
   }

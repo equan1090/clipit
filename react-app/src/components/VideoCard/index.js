@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './VideoCard.css'
+import {Link} from 'react-router-dom'
 import ReactPlayer from "react-player";
 
 function VideoCard(props) {
@@ -21,17 +22,26 @@ function VideoCard(props) {
             <div className='video-card-container'>
                 <div className='video-card'>
                     <div className='card-owner'>
-                        <img className='owner-profile-pic' src={videoOwner?.avatar_url} alt="" />
-                        <strong>{videoOwner.username}</strong>
+                        <Link to={`/users/${videoOwner?.id}`}>
+                            <img className='owner-profile-pic' src={videoOwner?.avatar_url} alt="" />
+                        </Link>
+                        <Link to={`/users/${videoOwner?.id}`}>
+                            <strong>{videoOwner.username}</strong>
+                        </Link>
                     </div>
                     <div className='video-title'>
-                        <h2>{video.title}</h2>
+                        <Link to={`/videos/${video.id}`}>
+                            <h2 id="title-card">{video.title}</h2>
+                        </Link>
                     </div>
-                    <div className='card-video'>
-                        <ReactPlayer
-                            url={props.video?.video_url}
-                        />
-                    </div>
+                    <Link to={`/videos/${video.id}`}>
+                        <div className='card-video'>
+                            <ReactPlayer
+                                height={400}
+                                url={props.video?.video_url}
+                            />
+                        </div>
+                    </Link>
                 </div>
                 {/* <div className='card-comments'>
 

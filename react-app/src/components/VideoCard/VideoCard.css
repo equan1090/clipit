@@ -1,11 +1,25 @@
 .video-card-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+
+}
+#title-card {
+    margin: 0;
 }
 .video-card {
-    min-width: 640px;
-    
+    width: 638px;
+    height: 500px;
+    border-radius: 5px;
+    border: solid 1px gray;
+    background-color: white;
+
+}
+#video-size {
+    max-width: 100%;
+}
+.card-video {
+    max-width: 100%;
 }
 .card-owner {
     display: flex;

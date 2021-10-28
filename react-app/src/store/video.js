@@ -24,6 +24,17 @@ const specificVideoAction = (video) => ({
   payload: video,
 });
 
+export const popularVideoThunk = () => async(dispatch) => {
+  const res = await fetch("/api/videos/popular")
+  if(res.ok) {
+    const videos = await res.json();
+    dispatch(getAllVideoAction(videos))
+  } else{
+    return "cannot get popular videos"
+  }
+
+}
+
 export const getAllVideoThunk = () => async (dispatch) => {
   const res = await fetch("/api/videos");
   if (res.ok) {
@@ -37,7 +48,7 @@ export const getAllVideoThunk = () => async (dispatch) => {
 export const deleteVideoThunk = (id) => async (dispatch) => {
   const response = await fetch(`/api/videos/${id}`, {
     method: "DELETE",
-  })("this is the response", response);
+  })
   if (response.ok) {
 
     const video = await response.json();
@@ -65,6 +76,9 @@ export const editVideoThunk = (video) => async (dispatch) => {
     return ["An error occured. Please try again"];
   }
 };
+
+
+
 
 export const specificVideoThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/videos/${id}`);
@@ -98,13 +112,18 @@ export const createVideoThunk = (video) => async (dispatch) => {
 const initialState = [];
 
 function videoReducer(state = initialState, action) {
-  const newState = { ...state };
+  const newState = {...state} ;
   switch (action.type) {
+
     case GET_ALL:
-      return action.payload.videos;
+      return {
+        videos: action.payload
+      };
 
     case CREATE_VIDEO:
-      return action.payload.video;
+      return {
+        videos: action.payload
+      };
 
     case GET_SPEICIFIC_VIDEO:
       return {
