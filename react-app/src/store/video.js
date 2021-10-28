@@ -95,7 +95,7 @@ export const createVideoThunk = (video) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = [];
 
 function videoReducer(state = initialState, action) {
   const newState = { ...state };
