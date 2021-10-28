@@ -12,6 +12,7 @@ const deleteCommentAction = (comments) => ({
   payload: comments,
 });
 
+
 const loadCommentAction = (comments) => ({
   type: LOAD_COMMENT,
   payload: comments,
@@ -29,6 +30,15 @@ export const deleteCommentThunk = (id, videoId) => async (dispatch) => {
     dispatch(loadCommentAction(comment));
   }
 };
+
+export const editCommentThunk = (comment) => async(dispatch) => {
+  console.log('this is comment to be editted', comment)
+  const res = await fetch('/api/videos/comments', {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({comment})
+  })
+}
 
 export const getCommentThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/videos/${id}/comments`);

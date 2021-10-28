@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteVideoThunk, specificVideoThunk } from "../../store/video";
 import { useParams, useHistory, NavLink, Link } from "react-router-dom";
 import ReactPlayer from "react-player";
+import CommentComponent from "../CommentComponent";
 import {
   addCommentThunk,
   deleteCommentThunk,
   getCommentThunk,
+  editCommentThunk
 } from "../../store/comment";
 import "./SpecificVideo.css";
 
@@ -19,6 +21,7 @@ const SpecificVideo = () => {
   const history = useHistory();
   const [commentContent, setCommentContent] = useState("");
   const [videoOwner, setVideoOwner] = useState({})
+  const [showEdit, setShowEdit] = useState(false)
 
   // Gets
   useEffect(() => {
@@ -36,13 +39,23 @@ const SpecificVideo = () => {
       setVideoOwner(videoOwner);
     })();
   }, [videos?.user_id]);
-  const handleDeleteComment = (commentId) => {
-    dispatch(deleteCommentThunk(commentId, videoId));
-  };
+  // const handleDeleteComment = (commentId) => {
+  //   dispatch(deleteCommentThunk(commentId, videoId));
+  // };
 
   const handleDeleteVideo = (videoId) => {
     dispatch(deleteVideoThunk(videoId));
   };
+
+  // const handleEditComment = (id) => {
+
+  //   const updatedComment = {
+  //     id,
+  //     content: commentContent
+  //   }
+  //   dispatch(editCommentThunk(updatedComment))
+
+  // }
 
   // Submits form and sends the comment to the store
   const handleSubmit = (e) => {
@@ -86,25 +99,33 @@ const SpecificVideo = () => {
     }
   }
 
-  function EditDeleteComment(comment) {
+  const editComment = (e) => {
+    e.preventDefault()
+    setShowEdit(true)
 
-    if (user?.id == comment?.comment?.user_id) {
-      return (
-        <div className="more-option">
-          <button className="edit-comment">Edit</button>
-          <button
-            className="delete-comment"
-            onClick={() => {
-              handleDeleteComment(comment.comment?.id);
-            }}
-          >
-            Delete
-          </button>
-        </div>
-      );
-    }
-    return null;
   }
+
+  // function EditDeleteComment(comment) {
+
+  //   if (user?.id == comment?.comment?.user_id) {
+  //     return (
+  //       <div className="more-option">
+  //         <button className="edit-comment"
+  //         onClick={editComment}
+  //         >Edit</button>
+  //         <button
+  //           className="delete-comment"
+  //           onClick={() => {
+  //             handleDeleteComment(comment.comment?.id);
+  //           }}
+  //         >
+  //           Delete
+  //         </button>
+  //       </div>
+  //     );
+  //   }
+  //   return null;
+  // }
 
   return (
     <div>
@@ -141,29 +162,36 @@ const SpecificVideo = () => {
       <div className="comment-area-wrapper">
         <div className="comment-list">
           {comments?.map((comment) => (
-            <div className="single-comment" key={comment.id}>
-              <div className="comment-user">
-                <div className="profile-pic-container">
-                  <NavLink to={`/users/${comment?.users?.id}`}>
-                    <img
-                      className="profile-pic"
-                      src={comment?.users?.avatar_url}
-                      alt=""
-                    />
-                  </NavLink>
-                  <NavLink to={`/users/${comment?.users?.id}`}>
-                    {comment?.users?.username}
-                  </NavLink>
-                </div>
-                <div className="option">
-                  <button>
-                    <img src="../../assets/optionIcon.svg" alt="" />
-                  </button>
-                </div>
-              </div>
-              <div className="comment-content">{comment.content}</div>
-              <EditDeleteComment comment={comment} />
+            <div>
+
+              <CommentComponent key={comment?.id} comment={comment} />
+              {/* <EditDeleteComment comment={comment}/> */}
             </div>
+            // <div className="single-comment" key={comment.id}>
+            //   <div className="comment-user">
+            //     <div className="profile-pic-container">
+            //       <NavLink to={`/users/${comment?.users?.id}`}>
+            //         <img
+            //           className="profile-pic"
+            //           src={comment?.users?.avatar_url}
+            //           alt=""
+            //         />
+            //       </NavLink>
+            //       <NavLink to={`/users/${comment?.users?.id}`}>
+            //         {comment?.users?.username}
+            //       </NavLink>
+            //     </div>
+            //     <div className="option">
+            //       <button>
+            //         <img src="../../assets/optionIcon.svg" alt="" />
+            //       </button>
+            //     </div>
+            //   </div>
+            //   <div className="comment-content">
+            //     {comment.content}
+            //     </div>
+            //   <EditDeleteComment comment={comment} />
+            // </div>
           ))}
         </div>
       </div>

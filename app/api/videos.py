@@ -114,7 +114,7 @@ def delete_comment(videoId):
     body = request.json
 
     deleted_comment = Comment.query.filter(Comment.id == body['id']).first()
-    print('\n\n\n\nThis is my body\n\n\n\n',body)
+   
     db.session.delete(deleted_comment)
     db.session.commit()
     comments = Comment.query.filter(Comment.video_id == videoId).all()
