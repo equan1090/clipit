@@ -37,7 +37,7 @@ export const getAllVideoThunk = () => async (dispatch) => {
 export const deleteVideoThunk = (id) => async (dispatch) => {
   const response = await fetch(`/api/videos/${id}`, {
     method: "DELETE",
-  })("this is the response", response);
+  })
   if (response.ok) {
 
     const video = await response.json();
@@ -98,7 +98,7 @@ export const createVideoThunk = (video) => async (dispatch) => {
 const initialState = [];
 
 function videoReducer(state = initialState, action) {
-  const newState = { ...state };
+  const newState = {...state} ;
   switch (action.type) {
     case GET_ALL:
       return action.payload.videos;
