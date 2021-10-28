@@ -64,19 +64,24 @@ function User() {
     })
 
   }
+  console.log(videos)
 
   if (featured){
 
     return (
       <div className='profile-wrapper'>
         <div className='profile-main'>
-          <div className='profile-featured-video'>
             <h1>Featured</h1>
-            <h3>{featured?.title}</h3>
-            <ReactPlayer
-              controls={true}
-              url={featured?.video_url}
-            />
+          <div className='profile-featured-video'>
+            <h3><Link to={`/videos/${featured?.id}`}>{featured?.title}</Link></h3>
+            <div className='featured-area'>
+              <ReactPlayer
+                controls={true}
+                url={featured?.video_url}
+              />
+
+
+            </div>
             <div className='profile-user'>
               <div className='profile-user-pic'>
                 <img className='profile-user-pic' src={user?.avatar_url} alt="" />
@@ -86,7 +91,20 @@ function User() {
               </div>
             </div>
           </div>
-          <div className='featured-comments'>
+          <div className='user-uploads'>
+            {videos?.videos?.map(video => (
+              <div className='video-cards'>
+                  {video?.title}
+                <Link to={`/videos/${video.id}`}>
+                  <ReactPlayer
+                  className='video-thumbnail'
+                  url={video?.video_url}
+                  height={100}
+                  width={250} />
+                </Link>
+              </div>
+
+            ))}
           </div>
         </div>
       </div>

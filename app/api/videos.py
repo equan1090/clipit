@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import Video, db, Comment
-from app.forms import VideoForm, CommentForm
+from app.forms import VideoForm, CommentForm, EditCommentForm
 
 from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
 from sqlalchemy import desc
@@ -67,9 +67,10 @@ def delete_video(id):
 
     video_url = deleted_video.video_url
     delete_from_s3(video_url)
-
+    print('Anything~~~~~~~~~~~~~~~~~~~~~')
     db.session.delete(deleted_video)
     db.session.commit()
+    return {"id": id}
 
 # GET REQUEST
 @video_routes.route('/comments', methods=['PATCH'])
@@ -103,10 +104,14 @@ def create_comment(videoId):
 @video_routes.route('/comments', methods=["DELETE"])
 def delete_comment():
     body = request.json
-    deleted_comment = Comment.query.filter(Comment.id == body['id'])
-
+    print("~~~~~~~~~BODYYYYY~~~~~~~~~", body['id'])
+    deleted_comment = Comment.query.filter(Comment.id == body['id']).first()
+    print("THIS IS MY DELETED COMMENT~~~~~~~~~~~~~",deleted_comment)
     db.session.delete(deleted_comment)
     db.session.commit()
+    comments = Comment.query.all()
+    return {'comments': [comment.to_dict() for comment in comments]}
+
 
 
 @video_routes.route('/<int:id>/comments')
@@ -114,3 +119,18 @@ def get_comment(id):
     comments = Comment.query.filter(Comment.video_id == id).all()
     return {"comments": [comment.to_dict() for comment in comments]}
 
+@video_routes.route('/comments', methods=['PATCH'])
+def edit_comment():
+
+    form = EditCommentForm()
+    data = form.data
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        comment = Comment.query.filter(Comment.id == data["id"]).first()
+        comment.content = data["content"]
+
+        db.session.commit()
+
+    else:
+        return "bad data in edit"
