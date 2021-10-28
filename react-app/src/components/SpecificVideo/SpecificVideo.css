@@ -16,9 +16,10 @@
 }
 
 .comment-list {
-    display:flex;
-    justify-content: center;
+    width: 640px;
+    height: 200px
 }
+
 
 .comment-user {
     display: flex;
@@ -28,10 +29,6 @@
 
 }
 
-.comment-content{
-    max-width: 640px;
-    margin-bottom: 2rem;
-}
 .profile-pic {
     height: 36px;
     width: 36px;
@@ -39,3 +36,16 @@
     margin: 0 0.5rem 0 0;
 }
 
+.comment-area-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.single-comment {
+    margin: 2rem;
+    overflow-wrap: break-word;
+}
+.profile-pic-container {
+    display: flex;
+    align-items: center;
+}

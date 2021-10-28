@@ -1,10 +1,10 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import Video, db, Comment
-from app.forms import VideoForm, CommentForm
+from app.forms import VideoForm, CommentForm, EditCommentForm
 
 from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 video_routes = Blueprint('videos', __name__)
 
 @video_routes.route('/<int:id>')
@@ -14,7 +14,8 @@ def get_video(id):
 
 @video_routes.route('')
 def get_all_video():
-    videos = Video.query.all()
+    videos = Video.query
+    videos = videos.order_by(Video.id.desc()).all()
     return {
         'videos': [video.to_dict() for video in videos]
     }
@@ -67,9 +68,9 @@ def delete_video(id):
 
     video_url = deleted_video.video_url
     delete_from_s3(video_url)
-
     db.session.delete(deleted_video)
     db.session.commit()
+    return {"id": id}
 
 # GET REQUEST
 @video_routes.route('/comments', methods=['PATCH'])
@@ -103,14 +104,34 @@ def create_comment(videoId):
 @video_routes.route('/comments', methods=["DELETE"])
 def delete_comment():
     body = request.json
-    deleted_comment = Comment.query.filter(Comment.id == body['id'])
 
+    deleted_comment = Comment.query.filter(Comment.id == body['id']).first()
     db.session.delete(deleted_comment)
     db.session.commit()
+    comments = Comment.query.all()
+    return {'comments': [comment.to_dict() for comment in comments]}
+
 
 
 @video_routes.route('/<int:id>/comments')
 def get_comment(id):
     comments = Comment.query.filter(Comment.video_id == id).all()
+    # comments = comments.order_by(Comment.id.desc()).all()
+
     return {"comments": [comment.to_dict() for comment in comments]}
 
+@video_routes.route('/comments', methods=['PATCH'])
+def edit_comment():
+
+    form = EditCommentForm()
+    data = form.data
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        comment = Comment.query.filter(Comment.id == data["id"]).first()
+        comment.content = data["content"]
+
+        db.session.commit()
+
+    else:
+        return "bad data in edit"

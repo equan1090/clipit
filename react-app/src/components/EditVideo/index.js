@@ -34,7 +34,7 @@ const EditVideo = () => {
             likes_count: video?.likes_count,
             comment_count: video?.comment_count,
             video_url: video?.video_url,
-            
+
         }
         console.log('Updated Video', updatedVideo)
         dispatch(editVideoThunk(updatedVideo));

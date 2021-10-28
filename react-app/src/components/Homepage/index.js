@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+import ReactPlayer from "react-player";
 // import { getAllVideoThunk } from "../../store/video";
-
+import './Homepage.css'
 const Homepage = () => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
@@ -33,9 +33,23 @@ const Homepage = () => {
 
 
     return (
-        <div>
+        <>
+          <div className='navigation-tabs'>
+            <div className='popular-tab'>
+              <Link id='popular' to='/videos/popular'>Popular</Link>
+            </div>
+            <div className='new-tab'>
+              <Link id='new' to='/videos/new'>New</Link>
+            </div>
 
-        </div>
+          </div>
+          <div className='featured-home'>
+            <ReactPlayer
+            controls={true}
+            url={featured?.video_url}
+            />
+          </div>
+        </>
     )
 }
 
