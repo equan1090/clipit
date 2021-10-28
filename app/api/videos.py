@@ -12,7 +12,7 @@ def get_video(id):
     videos = Video.query.filter(Video.id == id).first()
     return videos.to_dict()
 
-@video_routes.route('/videos/popular')
+@video_routes.route('/popular')
 def get_popular():
     videos = Video.query
     videos = videos.order_by(Video.likes_count.desc()).all()
