@@ -37,7 +37,7 @@ const SpecificVideo = () => {
     })();
   }, [videos?.user_id]);
   const handleDeleteComment = (commentId) => {
-    dispatch(deleteCommentThunk(commentId));
+    dispatch(deleteCommentThunk(commentId, videoId));
   };
 
   const handleDeleteVideo = (videoId) => {
@@ -87,7 +87,7 @@ const SpecificVideo = () => {
   }
 
   function EditDeleteComment(comment) {
-  
+
     if (user?.id == comment?.comment?.user_id) {
       return (
         <div className="more-option">

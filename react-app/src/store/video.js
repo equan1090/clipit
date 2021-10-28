@@ -24,6 +24,17 @@ const specificVideoAction = (video) => ({
   payload: video,
 });
 
+export const popularVideoThunk = () => async(dispatch) => {
+  const res = await fetch("/api/videos/popular")
+  if(res.ok) {
+    const videos = await res.json();
+    dispatch(getAllVideoAction(videos))
+  } else{
+    return "cannot get popular videos"
+  }
+
+}
+
 export const getAllVideoThunk = () => async (dispatch) => {
   const res = await fetch("/api/videos");
   if (res.ok) {
@@ -66,6 +77,9 @@ export const editVideoThunk = (video) => async (dispatch) => {
   }
 };
 
+
+
+
 export const specificVideoThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/videos/${id}`);
 
@@ -100,11 +114,16 @@ const initialState = [];
 function videoReducer(state = initialState, action) {
   const newState = {...state} ;
   switch (action.type) {
+
     case GET_ALL:
-      return action.payload.videos;
+      return {
+        videos: action.payload
+      };
 
     case CREATE_VIDEO:
-      return action.payload.video;
+      return {
+        videos: action.payload
+      };
 
     case GET_SPEICIFIC_VIDEO:
       return {

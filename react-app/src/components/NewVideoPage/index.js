@@ -8,7 +8,7 @@ import NavigationTabs from "../NavigationTabs";
 
 function NewVideoPage() {
     const dispatch = useDispatch()
-    const videos = useSelector((state) => state?.videos)
+    const videos = useSelector((state) => state?.videos?.videos?.videos)
 
     useEffect(() => {
         dispatch(getAllVideoThunk())
