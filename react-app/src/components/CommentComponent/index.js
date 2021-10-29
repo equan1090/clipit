@@ -23,7 +23,8 @@ function CommentComponent({comment}) {
         content
       }
 
-      dispatch(editCommentThunk(changed))
+      dispatch(editCommentThunk(changed, videoId))
+      setShowEdit(false)
     }
     // const keyPress = (e) => {
     //     if(e.key === "Enter") {

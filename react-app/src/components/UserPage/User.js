@@ -41,7 +41,7 @@ function User() {
 
   // If logged in user owns profile page, then it displays different results
   function Owner() {
-    if(currentUser.id === +userId){
+    if(currentUser?.id === +userId){
       return (
         <div>
             <p>Upload your first video <Link to='/upload'>here</Link></p>

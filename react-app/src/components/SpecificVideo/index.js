@@ -47,17 +47,6 @@ const SpecificVideo = () => {
     dispatch(deleteVideoThunk(videoId));
   };
 
-  // const handleEditComment = (id) => {
-
-  //   const updatedComment = {
-  //     id,
-  //     content: commentContent
-  //   }
-  //   dispatch(editCommentThunk(updatedComment))
-
-  // }
-
-  // Submits form and sends the comment to the store
   const handleSubmit = (e) => {
     e.preventDefault();
     const newComment = {
@@ -99,33 +88,30 @@ const SpecificVideo = () => {
     }
   }
 
-  const editComment = (e) => {
-    e.preventDefault()
-    setShowEdit(true)
+  function LoggedIn(){
+    if(user){
+      return (
+        <form onSubmit={handleSubmit}>
+        <textarea
+          cols="50"
+          rows="5"
+          placeholder="Comment"
+          value={commentContent}
+          required={true}
+          onChange={(e) => setCommentContent(e.target.value)}
+        />
+        <button type="submit">Submit</button>
+      </form>
+      )
+    } else{
+      return (
+        <>
+          <p>Log in to comment!</p>
+        </>
+      )
+    }
 
   }
-
-  // function EditDeleteComment(comment) {
-
-  //   if (user?.id == comment?.comment?.user_id) {
-  //     return (
-  //       <div className="more-option">
-  //         <button className="edit-comment"
-  //         onClick={editComment}
-  //         >Edit</button>
-  //         <button
-  //           className="delete-comment"
-  //           onClick={() => {
-  //             handleDeleteComment(comment.comment?.id);
-  //           }}
-  //         >
-  //           Delete
-  //         </button>
-  //       </div>
-  //     );
-  //   }
-  //   return null;
-  // }
 
   return (
     <div>
@@ -147,51 +133,15 @@ const SpecificVideo = () => {
         <EditDeleteVideo id={comments?.id} />
       </div>
       <div className="add-comment-area">
-        <form onSubmit={handleSubmit}>
-          <textarea
-            cols="50"
-            rows="5"
-            placeholder="Comment"
-            value={commentContent}
-            required={true}
-            onChange={(e) => setCommentContent(e.target.value)}
-          />
-          <button type="submit">Submit</button>
-        </form>
+        <LoggedIn />
       </div>
       <div className="comment-area-wrapper">
         <div className="comment-list">
           {comments?.map((comment) => (
             <div>
-
               <CommentComponent key={comment?.id} comment={comment} />
-              {/* <EditDeleteComment comment={comment}/> */}
             </div>
-            // <div className="single-comment" key={comment.id}>
-            //   <div className="comment-user">
-            //     <div className="profile-pic-container">
-            //       <NavLink to={`/users/${comment?.users?.id}`}>
-            //         <img
-            //           className="profile-pic"
-            //           src={comment?.users?.avatar_url}
-            //           alt=""
-            //         />
-            //       </NavLink>
-            //       <NavLink to={`/users/${comment?.users?.id}`}>
-            //         {comment?.users?.username}
-            //       </NavLink>
-            //     </div>
-            //     <div className="option">
-            //       <button>
-            //         <img src="../../assets/optionIcon.svg" alt="" />
-            //       </button>
-            //     </div>
-            //   </div>
-            //   <div className="comment-content">
-            //     {comment.content}
-            //     </div>
-            //   <EditDeleteComment comment={comment} />
-            // </div>
+
           ))}
         </div>
       </div>
