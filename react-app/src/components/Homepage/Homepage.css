@@ -1,21 +1,51 @@
+
 .featured-home {
     display: flex;
     justify-content: center;
 }
 
+.dynamic-text li {
+    font-size: 60px;
+    font-weight: 400;
+    color: white;
+}
+.dynamic-text li span {
+    position: relative;
+}
+.dynamic-text li span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 100%;
+    background-color: #252525;
+    width: 100%;
+    border-left: 2px solid white;
+    animation: typing 2s steps(22) forwards;
+
+}
+@keyframes typing {
+    to {
+        left: 100%;
+    }
+}
+@keyframes blink {
+    to {
+        background: transparent;
+    }
+}
 
 #popular {
     margin-right: 1rem;
 }
 .signup-login-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr .5fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 1px 26px;
     grid-auto-flow: row;
     grid-template-areas:
       "home-video-area home-video-area login-and-signup-area"
-      ". . .";
+      ". about .";
   }
 
   .home-video-area {
@@ -40,20 +70,37 @@
 .login-area {
 
     grid-area: login-area;
-    background-color: white;
+    background-color: #EFEFEF;
     border: 1px solid gray;
     border-radius: 5px;
 
 }
-
+#linkedin {
+    height: 64px;
+}
+.footer {
+    display: flex;
+    grid-area: about;
+    justify-content: space-around;
+}
 .sign-up-area {
     grid-area: sign-up-area;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #EFEFEF;
     border: 1px solid gray;
     border-radius: 5px;
+    height: 80px;
+}
+#demo-btn {
+    width: 100%;
+    margin: 1rem 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: 700;
+    color: #FF3B3F;
 }
 
 .form-container {

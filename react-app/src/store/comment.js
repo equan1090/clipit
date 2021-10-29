@@ -38,7 +38,7 @@ export const editCommentThunk = (comment, id) => async(dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(comment)
   })
-  console.log('this is res')
+
   if(res.ok){
 
     const editted = await res.json();
@@ -82,6 +82,7 @@ function commentReducer(state = initialState, action) {
       };
     case LOAD_COMMENT:
       return action.payload.comments;
+      
     case DELETE_COMMENT:
       return action.payload.comments;
     default:
