@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
+import './UploadForm.css'
 
 const UploadForm = () => {
     const [errors, setErrors] = useState([]);
@@ -29,7 +29,7 @@ const UploadForm = () => {
             method: "POST",
             body: formData
         });
-        
+
         if (res.ok) {
             const data = await res.json()
             setVideoLoading(false)
@@ -52,28 +52,33 @@ const UploadForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            {errors && <h3>{errors}</h3>}
-            <input type="text"
-            name='title'
-            onChange={(e) => {setTitle(e.target.value)}}
-            value={title}
-            required={true}
-            />
+        <div>
 
-            <textarea name="" id="" cols="30" rows="10"
+            <form onSubmit={handleSubmit}
+            className='upload-form'>
+                {errors && <h3>{errors}</h3>}
+                <input type="text"
+                placeholder='title'
+                name='title'
+                onChange={(e) => {setTitle(e.target.value)}}
+                value={title}
+                required={true}
+                />
 
-            value={description}
-            onChange={(e) => {setDescription(e.target.value)}} />
+                <textarea name="" id="" cols="30" rows="10"
+                placeholder='description'
+                value={description}
+                onChange={(e) => {setDescription(e.target.value)}} />
 
-            <input type="file"
-            accept="video/*"
-            onChange={updateVideo}
-            required={true}
-            />
-            <button type="submit">Submit</button>
-            {(videoLoading)&& <p>Loading...</p>}
-        </form>
+                <input type="file"
+                accept="video/*"
+                onChange={updateVideo}
+                required={true}
+                />
+                <button type="submit">Submit</button>
+                {(videoLoading)&& <p>Loading...</p>}
+            </form>
+        </div>
     )
 }
 

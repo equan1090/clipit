@@ -7,10 +7,12 @@ function VideoCard(props) {
     console.log('Inside video card', props.video)
     const [videoOwner, setVideoOwner] = useState({})
     const video = props?.video
+
+    console.log('This is my video', video)
     useEffect(() => {
 
         (async () => {
-            const response = await fetch(`/api/users/${props.video?.user_id}`)
+            const response = await fetch(`/api/users/${video.user_id}`)
             const user = await response.json();
             setVideoOwner(user)
         })();

@@ -11,7 +11,7 @@ import { authenticate } from './store/session';
 import UploadForm from './components/UploadModal/UploadForm';
 import SpecificVideo from './components/SpecificVideo';
 import EditVideo from './components/EditVideo';
-import UploadModal from './components/UploadModal';
+
 import Homepage from './components/Homepage';
 import NewVideoPage from './components/NewVideoPage';
 import PopularVideoPage from './components/PopularVideoPage';
@@ -65,14 +65,14 @@ function App() {
         {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute> */}
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <Route path='/users/:userId' exact={true} >
           <NavBar />
           <User />
-        </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
+        </Route>
+        <Route path='/' exact={true} >
           <NavBar />
           <Homepage />
-        </ProtectedRoute>
+        </Route>
 
       </Switch>
     </BrowserRouter>
