@@ -27,38 +27,47 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/videos/popular' />;
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-      </div>
-    </form>
+    <div className='form-container'>
+      <h3 id='splash-title'>Clip It</h3>
+      <form onSubmit={onLogin}>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <div id='email-login'>
+
+          <input
+            name='email'
+            type='text'
+            placeholder='Email'
+            value={email}
+            onChange={updateEmail}
+          />
+        </div>
+        <div id='password-login'>
+
+          <input
+            name='password'
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={updatePassword}
+          />
+        </div>
+        <div>
+          <button id='login-btn' type='submit'>Login</button>
+        </div>
+        <button onClick={() => {
+          setEmail('demo@aa.io')
+          setPassword('password')
+        }} type='submit' className='demo-btn'>Sign in as Demo User</button>
+      </form>
+    </div>
   );
 };
 

@@ -34,43 +34,35 @@ function App() {
     <BrowserRouter>
 
       <Switch>
-        <Route path='/login' exact={true}>
-          <NavBar />
-          <LoginForm />
-        </Route>
         <Route path='/sign-up' exact={true}>
           <NavBar />
           <SignUpForm />
         </Route>
-        <Route path='/upload'>
+        <ProtectedRoute path='/upload'>
           <NavBar />
           <UploadForm />
-        </Route>
-        <Route path='/videos/new'>
+        </ProtectedRoute>
+        <ProtectedRoute path='/videos/new'>
           <NavBar />
           <NewVideoPage />
-        </Route>
-        <Route path='/videos/popular'>
+        </ProtectedRoute>
+        <ProtectedRoute path='/videos/popular'>
           <NavBar />
           <PopularVideoPage />
-        </Route>
-        <Route path='/videos/:videoId' exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute path='/videos/:videoId' exact={true}>
           <NavBar />
           <SpecificVideo />
-        </Route>
-        <Route path='/videos/:videoId/edit' exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute path='/videos/:videoId/edit' exact={true}>
           <NavBar />
           <EditVideo />
-        </Route>
-        {/* <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute> */}
-        <Route path='/users/:userId' exact={true} >
+        </ProtectedRoute>
+        <ProtectedRoute path='/users/:userId' exact={true} >
           <NavBar />
           <User />
-        </Route>
+        </ProtectedRoute>
         <Route path='/' exact={true} >
-          <NavBar />
           <Homepage />
         </Route>
 

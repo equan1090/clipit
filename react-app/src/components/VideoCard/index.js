@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import ReactPlayer from "react-player";
 
 function VideoCard(props) {
-    
+
     const [videoOwner, setVideoOwner] = useState({})
     const video = props?.video
 
@@ -18,7 +18,7 @@ function VideoCard(props) {
         })();
 
     }, [props.video?.user_id])
-    console.log('this is videoowner', videoOwner)
+
     return(
         <>
             <div className='video-card-container'>

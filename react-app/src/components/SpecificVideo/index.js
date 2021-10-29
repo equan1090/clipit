@@ -6,9 +6,7 @@ import ReactPlayer from "react-player";
 import CommentComponent from "../CommentComponent";
 import {
   addCommentThunk,
-  deleteCommentThunk,
   getCommentThunk,
-  editCommentThunk
 } from "../../store/comment";
 import "./SpecificVideo.css";
 
@@ -21,7 +19,7 @@ const SpecificVideo = () => {
   const history = useHistory();
   const [commentContent, setCommentContent] = useState("");
   const [videoOwner, setVideoOwner] = useState({})
-  const [showEdit, setShowEdit] = useState(false)
+
 
   // Gets
   useEffect(() => {
@@ -39,9 +37,6 @@ const SpecificVideo = () => {
       setVideoOwner(videoOwner);
     })();
   }, [videos?.user_id]);
-  // const handleDeleteComment = (commentId) => {
-  //   dispatch(deleteCommentThunk(commentId, videoId));
-  // };
 
   const handleDeleteVideo = (videoId) => {
     dispatch(deleteVideoThunk(videoId));
@@ -88,31 +83,6 @@ const SpecificVideo = () => {
     }
   }
 
-  function LoggedIn(){
-    if(user){
-      return (
-        <form onSubmit={handleSubmit}>
-        <textarea
-          cols="50"
-          rows="5"
-          placeholder="Comment"
-          value={commentContent}
-          required={true}
-          onChange={(e) => setCommentContent(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
-      )
-    } else{
-      return (
-        <>
-          <p>Log in to comment!</p>
-        </>
-      )
-    }
-
-  }
-
   return (
     <div>
       <div className="content-container">
@@ -133,7 +103,19 @@ const SpecificVideo = () => {
         <EditDeleteVideo id={comments?.id} />
       </div>
       <div className="add-comment-area">
-        <LoggedIn />
+        {user ?
+      <form onSubmit={handleSubmit}>
+        <textarea
+          cols="50"
+          rows="5"
+          placeholder="Comment"
+          value={commentContent}
+          required={true}
+          onChange={(e) => setCommentContent(e.target.value)}
+        />
+        <button type="submit">Submit</button>
+      </form>
+          : <p>Log in to comment</p>}
       </div>
       <div className="comment-area-wrapper">
         <div className="comment-list">
@@ -141,7 +123,6 @@ const SpecificVideo = () => {
             <div>
               <CommentComponent key={comment?.id} comment={comment} />
             </div>
-
           ))}
         </div>
       </div>

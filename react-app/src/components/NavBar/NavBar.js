@@ -21,7 +21,6 @@ const NavBar = () => {
 
           </div>
           <div className='top-nav-middle'>
-            {/* <input type="text" placeholder='Search...' /> */}
           </div>
           <div className='top-nav-left'>
             <NavLink to='/sign-up' exact={true} activeClassName='active'>
@@ -46,7 +45,6 @@ const NavBar = () => {
             <UploadModal />
           </div>
           <div className='top-nav-middle'>
-            {/* <input type="text" placeholder='Search...' /> */}
           </div>
           <div className='top-nav-left'>
             <NavLink to={`/users/${user.id}`}>

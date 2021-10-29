@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 // import { getAllVideoThunk } from "../../store/video";
 import './Homepage.css'
+import LoginForm from "../auth/LoginForm";
+import SignUpForm from "../auth/SignUpForm";
 const Homepage = () => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user)
@@ -34,21 +36,24 @@ const Homepage = () => {
 
     return (
         <>
-          <div className='navigation-tabs'>
-            <div className='popular-tab'>
-              <Link id='popular' to='/videos/popular'>Popular</Link>
+          <h1>Share clips like these</h1>
+          <div className="signup-login-container">
+            <div className="home-video-area">
+              <ReactPlayer
+              controls={true}
+              url={featured?.video_url}
+              />
             </div>
-            <div className='new-tab'>
-              <Link id='new' to='/videos/new'>New</Link>
+            <div className="login-and-signup-area">
+                <div className="login-area">
+                  <LoginForm />
+                </div>
+                <div className="sign-up-area">
+                  Signup
+                </div>
             </div>
+          </div>
 
-          </div>
-          <div className='featured-home'>
-            <ReactPlayer
-            controls={true}
-            url={featured?.video_url}
-            />
-          </div>
         </>
     )
 }

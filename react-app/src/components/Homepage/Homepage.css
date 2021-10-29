@@ -7,3 +7,81 @@
 #popular {
     margin-right: 1rem;
 }
+.signup-login-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px 26px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "home-video-area home-video-area login-and-signup-area"
+      ". . .";
+  }
+
+  .home-video-area {
+    grid-area: home-video-area;
+    display: flex;
+    justify-content: center;
+    }
+
+  .login-and-signup-area {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 20px 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "login-area login-area ."
+      "login-area login-area ."
+      "sign-up-area sign-up-area .";
+    grid-area: login-and-signup-area;
+  }
+.login-area {
+
+    grid-area: login-area;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+
+}
+
+.sign-up-area {
+    grid-area: sign-up-area;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.form-container {
+    display: grid;
+    padding: 2rem;
+    justify-content: center;
+}
+#splash-title {
+    text-align: center;
+}
+#email-login {
+    margin: 1rem 0;
+}
+#password-login {
+    margin: 1rem 0;
+}
+#login-btn {
+    width: 100%
+}
+/*
+
+.login-signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.signup-prompt {
+    background-color: red;
+} */
