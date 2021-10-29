@@ -1,0 +1,25 @@
+.signup-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.signup-container {
+    background-color: #efefef;
+    height: 50vh;
+    border-radius: 5px;
+}
+.errors {
+    color: red;
+    text-align: center;
+}
+
+.signup-info {
+    text-align: center;
+}
+.signup-container input {
+    margin: 1rem;
+}
+

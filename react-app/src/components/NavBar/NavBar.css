@@ -4,8 +4,12 @@ ul {
 
 .top-nav-menu {
     display: flex;
+    background-color: #efefef;
+    height: 5vh;
     justify-content: space-between;
+    align-items: center;
 }
+
 .top-nav-left {
     display: flex;
     margin-left: 1rem;

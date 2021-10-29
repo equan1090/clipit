@@ -29,7 +29,7 @@ const UploadForm = () => {
         if(!video) errors.push('Please provide a video')
         if(video && !acceptedTypes.includes(fileType)) errors.push('Filetype must be an .mp4, .webm, .mov, .wmv or an .avi')
         if(title.length > 30) errors.push('Title must be 30 characters or less')
-
+        if(title.length < 5) errors.push('Title must be at least 5 characters long')
         if(errors.length) {
             setErrors(errors)
             return null
@@ -71,14 +71,14 @@ const UploadForm = () => {
 
     return (
         <div>
-            {errors && errors.map((error) => (
-                <div>
+            {errors && errors.map((error, ind) => (
+                <div className='errors' key={ind}>
                     {error}
                 </div>
             ))}
             <form onSubmit={handleSubmit}
             className='upload-form'>
-                {errors && <h3>{errors}</h3>}
+    
                 <input type="text"
                 placeholder='title'
                 name='title'

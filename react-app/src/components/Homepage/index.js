@@ -40,7 +40,7 @@ const Homepage = () => {
         <>
           <div className='text-wrapper'>
             <ul className='dynamic-text'>
-              <li><span>Share clips like these</span></li>
+              <li><span>Share clips like these & impress</span></li>
             </ul>
           </div>
           <div className="signup-login-container">
@@ -55,7 +55,7 @@ const Homepage = () => {
                   <LoginForm />
                 </div>
                 <div className="sign-up-area">
-                  Signup
+                  Not registered? Sign up &nbsp;<Link to='/sign-up'>here</Link>
                 </div>
             </div>
           <div className='footer'>

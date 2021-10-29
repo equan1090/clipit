@@ -8,20 +8,24 @@
     font-size: 60px;
     font-weight: 400;
     color: white;
+    position: relative;
+    left: auto;
 }
 .dynamic-text li span {
     position: relative;
+
 }
 .dynamic-text li span::after {
     content: "";
     position: absolute;
+    
     left: 0;
     height: 100%;
     background-color: #252525;
     width: 100%;
     border-left: 2px solid white;
-    animation: typing 2s steps(22) forwards;
-
+    animation: typing 2s steps(32) forwards;
+    overflow: hidden;
 }
 @keyframes typing {
     to {

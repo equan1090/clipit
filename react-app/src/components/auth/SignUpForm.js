@@ -1,25 +1,37 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
-
+import './SignUpForm.css'
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const history = useHistory()
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  const cancel = (e) => {
+    e.preventDefault()
+    history.push('/')
+  }
+
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
-      if (data) {
-        setErrors(data)
-      }
+    let errors = []
+    if (username.length < 5) errors.push('Username must be at least 5 characters')
+    if (username.length > 40) errors.push('Username must 40 characters or less')
+    if (password !== repeatPassword) errors.push("Passwords must match")
+    if (errors.length) {
+      setErrors(errors)
+      return null
     }
+    setErrors([])
+
+    dispatch(signUp(username, email, password));
+
   };
 
   const updateUsername = (e) => {
@@ -43,51 +55,70 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <>
+    <div className='signup-wrapper'>
+      <div className='signup-container'>
+        <div className='signup-info'>
+          <h2>Clip It</h2>
+          <p>Sign up to view and upload</p>
+        </div>
+        <form onSubmit={onSignUp}>
+          <div>
+            {errors.map((error, ind) => (
+              <div className='errors' key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+
+            <input
+            placeholder='Username'
+              type='text'
+              name='username'
+              onChange={updateUsername}
+              value={username}
+            ></input>
+          </div>
+          <div>
+
+            <input
+              placeholder='Email'
+              type='email'
+              name='email'
+              onChange={updateEmail}
+              value={email}
+            ></input>
+          </div>
+          <div>
+
+            <input
+            placeholder='Password'
+              type='password'
+              name='password'
+              onChange={updatePassword}
+              value={password}
+            ></input>
+          </div>
+          <div>
+
+            <input
+            placeholder="Confirm Password"
+              type='password'
+              name='repeat_password'
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+            ></input>
+          </div>
+          <button type='submit'>Sign Up</button>
+          <button
+          onClick={cancel}
+          >Cancel</button>
+        </form>
+
       </div>
-      <div>
-        <label>User Name</label>
-        <input
-          type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='repeat_password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type='submit'>Sign Up</button>
-    </form>
+
+    </div>
+    </>
   );
 };
 

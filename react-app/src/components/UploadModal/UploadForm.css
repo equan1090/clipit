@@ -2,3 +2,10 @@
     display: flex;
     flex-direction: column;
 }
+#logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ff3b3f;
+    margin-right: 2rem;
+}

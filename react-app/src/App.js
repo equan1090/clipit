@@ -35,7 +35,6 @@ function App() {
 
       <Switch>
         <Route path='/sign-up' exact={true}>
-          <NavBar />
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/upload'>
