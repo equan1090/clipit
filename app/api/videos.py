@@ -121,8 +121,8 @@ def get_comment(id):
 
     return {"comments": [comment.to_dict() for comment in comments]}
 
-@video_routes.route('/comments', methods=['PATCH'])
-def edit_comment():
+@video_routes.route('/<int:id>/comments', methods=['PATCH'])
+def edit_comment(id):
 
     form = EditCommentForm()
     data = form.data
@@ -135,8 +135,8 @@ def edit_comment():
 
         db.session.commit()
 
-        videos = Video.query.all()
-        return {"videos": [video.to_dict() for video in videos]}
+        comments = Comment.query.filter(Comment.video_id == id)
+        return {"comments": [comment.to_dict() for comment in comments]}
 
     else:
         return "bad data in edit"
