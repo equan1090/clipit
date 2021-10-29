@@ -2,15 +2,16 @@ const ADD_COMMENT = "ADD";
 const LOAD_COMMENT = "LOAD/COMMENT";
 const DELETE_COMMENT = "DELETE/COMMENT";
 
-const addCommentAction = (comments) => ({
-  type: ADD_COMMENT,
-  payload: comments,
-});
+// const addCommentAction = (comments) => ({
+//   type: ADD_COMMENT,
+//   payload: comments,
+// });
 
-const deleteCommentAction = (comments) => ({
-  type: DELETE_COMMENT,
-  payload: comments,
-});
+// const deleteCommentAction = (comments) => ({
+//   type: DELETE_COMMENT,
+//   payload: comments,
+// });
+
 
 const loadCommentAction = (comments) => ({
   type: LOAD_COMMENT,
@@ -29,6 +30,22 @@ export const deleteCommentThunk = (id, videoId) => async (dispatch) => {
     dispatch(loadCommentAction(comment));
   }
 };
+
+export const editCommentThunk = (comment) => async(dispatch) => {
+  console.log('this is comment to be editted', comment)
+  const res = await fetch('/api/videos/comments', {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(comment)
+  })
+  console.log('this is res')
+  if(res.ok){
+
+    const editted = await res.json();
+
+    dispatch(loadCommentAction(editted))
+  }
+}
 
 export const getCommentThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/videos/${id}/comments`);

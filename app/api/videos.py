@@ -80,14 +80,6 @@ def delete_video(id):
     db.session.commit()
     return {"id": id}
 
-# GET REQUEST
-@video_routes.route('/comments', methods=['PATCH'])
-def get_comments():
-    body = request.json
-    comments = Comment.query.filter(Comment.video_id == body['videoId']).all()
-    return {
-        'comments': [comment.to_dict() for comment in comments]
-    }
 
 #/videos/comments
 @video_routes.route('/<int:videoId>/comments', methods=['POST'])
@@ -114,7 +106,7 @@ def delete_comment(videoId):
     body = request.json
 
     deleted_comment = Comment.query.filter(Comment.id == body['id']).first()
-    print('\n\n\n\nThis is my body\n\n\n\n',body)
+
     db.session.delete(deleted_comment)
     db.session.commit()
     comments = Comment.query.filter(Comment.video_id == videoId).all()
@@ -136,11 +128,15 @@ def edit_comment():
     data = form.data
     form['csrf_token'].data = request.cookies['csrf_token']
 
+
     if form.validate_on_submit():
         comment = Comment.query.filter(Comment.id == data["id"]).first()
         comment.content = data["content"]
 
         db.session.commit()
+
+        videos = Video.query.all()
+        return {"videos": [video.to_dict() for video in videos]}
 
     else:
         return "bad data in edit"
