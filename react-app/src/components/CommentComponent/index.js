@@ -18,11 +18,12 @@ function CommentComponent({comment}) {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      const updatedComment = {
+      const changed = {
+        id: comment?.id,
         content
       }
 
-      dispatch(editCommentThunk(updatedComment))
+      dispatch(editCommentThunk(changed))
     }
     // const keyPress = (e) => {
     //     if(e.key === "Enter") {
@@ -89,7 +90,8 @@ function CommentComponent({comment}) {
                 required={true}
                 onChange={(e) => setContent(e.target.value)}
               />
-              <button type="submit">Submit</button>
+              <button type="submit"
+              >Submit</button>
           </form>
         </>
       )
