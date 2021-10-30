@@ -121,8 +121,8 @@ const SpecificVideo = () => {
       <div className="comment-area-wrapper">
         <div className="comment-list">
           {comments?.map((comment) => (
-            <div>
-              <CommentComponent key={comment?.id} comment={comment} />
+            <div key={comment?.id}>
+              <CommentComponent comment={comment} />
             </div>
           ))}
         </div>

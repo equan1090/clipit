@@ -70,7 +70,7 @@ def edit_video(id):
 @video_routes.route('/<int:id>', methods=['DELETE'])
 def delete_video(id):
     deleted_video = Video.query.get(id)
-    print('This is url to delete', deleted_video.video_url)
+    
     if not delete_video:
         return 'Video does not exist'
 

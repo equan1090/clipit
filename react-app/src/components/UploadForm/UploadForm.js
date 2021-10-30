@@ -22,7 +22,7 @@ const UploadForm = () => {
 
         let errors = []
         const acceptedTypes = ["mp4", "webm", "mov", "wmv", "avi"]
-        console.log('this is video \n\n',video)
+        
         let fileArr = video ? video.name.split('.') : null
         let fileType = video ? fileArr[fileArr.length - 1] : null
 

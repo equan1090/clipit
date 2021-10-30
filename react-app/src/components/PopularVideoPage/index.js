@@ -7,12 +7,12 @@ import { popularVideoThunk } from "../../store/video";
 function PopularVideoPage() {
     const dispatch = useDispatch()
     const videos = useSelector((state) => state.videos.videos?.videos)
-    console.log('', videos)
+
     useEffect(() => {
         dispatch(popularVideoThunk())
     }, [dispatch])
 
-    console.log()
+    
     return(
         <>
             <div className='main-content-area'>

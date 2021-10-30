@@ -63,7 +63,7 @@ function User() {
     })
 
   }
-  console.log(videos)
+ 
 
   if (featured){
 

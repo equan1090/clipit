@@ -13,7 +13,7 @@ const EditVideo = () => {
     const dispatch = useDispatch()
     const {videoId} = useParams();
 
-    console.log('THIS IS ID', videoId)
+
 
     useEffect(() => {
         dispatch(specificVideoThunk(videoId))
@@ -35,7 +35,7 @@ const EditVideo = () => {
             video_url: video?.video_url,
 
         }
-        console.log('Updated Video', updatedVideo)
+ 
         dispatch(editVideoThunk(updatedVideo));
         history.push(`/videos/${video?.id}`)
     }

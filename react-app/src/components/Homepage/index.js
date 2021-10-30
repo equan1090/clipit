@@ -20,7 +20,7 @@ const Homepage = () => {
             setVideos(videos);
         })();
     }, [])
-    console.log(videos)
+    
     let featured
     if(videos.videos?.length > 0) {
         featured = videos.videos?.reduce((prev, current) => {

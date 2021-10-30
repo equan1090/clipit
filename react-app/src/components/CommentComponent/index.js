@@ -72,7 +72,7 @@ function CommentComponent({comment}) {
                   </div>
                   <div className="option">
                     <button>
-                      <img src="../../assets/optionIcon.svg" alt="" />
+                      {/* //Placeholder for button */}
                     </button>
                   </div>
                 </div>
@@ -113,7 +113,7 @@ function CommentComponent({comment}) {
                   </div>
                   <div className="option">
                     <button>
-                      <img src="../../assets/optionIcon.svg" alt="" />
+                      {/* <img src="../../assets/optionIcon.svg" alt="" /> */}
                     </button>
                   </div>
                 </div>
