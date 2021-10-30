@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, NavLink, useHistory } from 'react-router-dom';
-import ReactPlayer from 'react-player';
+import {NavLink, useHistory } from 'react-router-dom';
+
 import {useSelector} from 'react-redux'
 import LogoutButton from '../auth/LogoutButton';
 import UploadForm from '../UploadForm/UploadForm';
 import Modal from '../ProfileModal/Modal';
 import UploadModal from '../UploadModal/UploadModal';
+import uploadImage from '../../images/upload-icon-20631.png'
 import './NavBar.css'
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,32 +39,7 @@ const NavBar = () => {
     history.push(`/users/${user?.id}`)
   }
 
-  if(!user){
 
-    return (
-      <nav className='top-nav-container'>
-        <div className='top-nav-menu'>
-          <div className='top-nav-left'>
-            <NavLink to='/' exact={true} activeClassName='active'>
-              Home
-            </NavLink>
-
-          </div>
-          <div className='top-nav-middle'>
-          </div>
-          <div className='top-nav-left'>
-            <NavLink to='/sign-up' exact={true} activeClassName='active'>
-              Sign Up
-            </NavLink>
-            <NavLink to='/login' exact={true} activeClassName='active'>
-              Login
-            </NavLink>
-
-          </div>
-        </div>
-      </nav>
-    );
-  }else{
     return (
       <nav className='top-nav-container'>
         <div className='top-nav-menu'>
@@ -72,7 +48,7 @@ const NavBar = () => {
               Home
             </NavLink>
             <div className='upload-btn' onClick={() => setUploadOpen(true)}>
-                Upload
+                <img id='upload-icon' src={uploadImage} alt="" />
             </div>
             <UploadModal open={uploadOpen} onClose = {() => setUploadOpen(false)}>
               <div className='upload-modal-container'>
@@ -94,15 +70,12 @@ const NavBar = () => {
                 </div>
               </div>
             </Modal>
-            {/* <NavLink to={`/users/${user.id}`}>
-              <img className='profile-pic' src={user.avatar_url} alt="" />
-            </NavLink> */}
 
           </div>
         </div>
       </nav>
     );
-  }
+
 
 
 }

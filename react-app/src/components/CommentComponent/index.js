@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCommentThunk, editCommentThunk } from "../../store/comment";
@@ -26,11 +26,7 @@ function CommentComponent({comment}) {
       dispatch(editCommentThunk(changed, videoId))
       setShowEdit(false)
     }
-    // const keyPress = (e) => {
-    //     if(e.key === "Enter") {
-    //         handleSubmit(e)
-    //     }
-    // }
+
     const editComment = (e) => {
       e.preventDefault()
       setShowEdit(true)
@@ -38,7 +34,7 @@ function CommentComponent({comment}) {
     }
     function EditDeleteComment(comment) {
 
-      if (user?.id == comment?.comment?.user_id) {
+      if (user?.id === comment?.comment?.user_id) {
         return (
           <div className="more-option">
             <button className="edit-comment"

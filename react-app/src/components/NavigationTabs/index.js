@@ -6,7 +6,6 @@ function NavigationTabs() {
 
     return (
         <>
-            
             <div className='navigation-tabs'>
                 <div className='popular-tab'>
                     <Link id='popular' to='/videos/popular'>Popular</Link>

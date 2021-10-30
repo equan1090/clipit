@@ -10,9 +10,18 @@ ul {
     align-items: center;
 }
 
+#upload-icon {
+    height: 50px;
+    width: 50px;
+}
+#upload-icon:hover {
+    cursor: pointer;
+}
+
 .top-nav-left {
     display: flex;
     margin-left: 1rem;
+    align-items: center;
 }
 .profile-modal-items {
     position: absolute;

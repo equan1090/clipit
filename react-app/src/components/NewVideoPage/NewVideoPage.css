@@ -9,4 +9,5 @@
     background-size: 100vw 100vh;
     background-attachment: fixed;
     justify-content: center;
+    align-items: center;
 }

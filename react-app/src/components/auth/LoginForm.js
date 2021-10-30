@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   return (
     <div className='form-container'>
-      <h3 id='splash-title'>Clip It</h3>
+      <h1 id='splash-title'>Clip It</h1>
       <form onSubmit={onLogin}>
         <div>
           {errors.map((error, ind) => (

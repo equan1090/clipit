@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import githublogo from '../../images/github-logo.png'
 import linkedinlogo from '../../images/linkedin.png'
-// import { getAllVideoThunk } from "../../store/video";
+
 import './Homepage.css'
 import LoginForm from "../auth/LoginForm";
-import SignUpForm from "../auth/SignUpForm";
+
 const Homepage = () => {
-    const dispatch = useDispatch()
-    const user = useSelector((state) => state.session.user)
-    const [featuredVideo, setFeaturedVideo] = useState(null)
-    // const videos = useSelector((state) => state.videos)
+
     const [videos, setVideos] = useState({})
-    // useEffect(() => {
-    //     dispatch(getAllVideoThunk())
-    // }, [dispatch])
 
 
     useEffect(() => {
@@ -33,7 +27,7 @@ const Homepage = () => {
             return (prev.likes_count > current.likes_count) ? prev : current
         })
     }
-    console.log('this is featured',featured)
+
 
 
     return (
@@ -55,14 +49,14 @@ const Homepage = () => {
                   <LoginForm />
                 </div>
                 <div className="sign-up-area">
-                  Not registered? Sign up &nbsp;<Link to='/sign-up'>here</Link>
+                  Not registered? Sign up &nbsp;<Link to='/sign-up' className='sign-up-here'>here</Link>
                 </div>
             </div>
           <div className='footer'>
-            <a target="_blank" href="https://github.com/equan1090">
+            <a target="_blank" href="https://github.com/equan1090" rel="noreferrer">
               <img src={githublogo} alt="" />
             </a>
-            <a target="_blank" href="https://www.linkedin.com/in/eric-quan-821139190/">
+            <a target="_blank" href="https://www.linkedin.com/in/eric-quan-821139190/" rel="noreferrer">
               <img id='linkedin' src={linkedinlogo} alt="" />
             </a>
           </div>

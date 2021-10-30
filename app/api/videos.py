@@ -78,7 +78,8 @@ def delete_video(id):
     delete_from_s3(video_url)
     db.session.delete(deleted_video)
     db.session.commit()
-    return {"id": id}
+    videos = Video.query.filter(Video.user_id == id).all()
+    return {"videos": [video.to_dict() for video in videos]}
 
 
 #/videos/comments

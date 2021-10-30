@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteVideoThunk, specificVideoThunk } from "../../store/video";
-import { useParams, useHistory, NavLink, Link } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import CommentComponent from "../CommentComponent";
 import {
@@ -40,6 +40,7 @@ const SpecificVideo = () => {
 
   const handleDeleteVideo = (videoId) => {
     dispatch(deleteVideoThunk(videoId));
+
   };
 
   const handleSubmit = (e) => {
@@ -71,7 +72,7 @@ const SpecificVideo = () => {
             type="button"
             onClick={() => {
               handleDeleteVideo(videoId);
-              history.push("/");
+              history.push(`/users/${user.id}`);
             }}
           >
             Delete Video

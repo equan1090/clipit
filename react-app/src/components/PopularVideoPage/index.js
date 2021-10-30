@@ -15,8 +15,8 @@ function PopularVideoPage() {
     console.log()
     return(
         <>
-            <NavigationTabs />
             <div className='main-content-area'>
+                <NavigationTabs />
                 {videos?.map((video) => (
                     <div key={video.id} className='one-card'>
                         <VideoCard video={video}/>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import './SignUpForm.css'
 const SignUpForm = () => {
@@ -9,7 +9,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const history = useHistory()
+
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -108,7 +108,7 @@ const SignUpForm = () => {
           </div>
           <div className='signup-btns'>
             <button id='signup-confirm' type='submit'>Sign Up</button>
- 
+
           </div>
         </form>
 
