@@ -1,6 +1,7 @@
 .navigation-tabs {
     display: flex;
     flex-direction: row;
+    box-sizing: border-box;
     justify-content: center;
-    margin: 3rem 3rem;
+
 }

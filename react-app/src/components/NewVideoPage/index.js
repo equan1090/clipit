@@ -17,7 +17,7 @@ function NewVideoPage() {
 
     return (
         <>
-            <NavigationTabs />
+                <NavigationTabs />
             <div className='main-content-area'>
                 {videos?.map((video) => (
                     <div key={video.id} className='one-card'>

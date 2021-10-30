@@ -8,7 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/UserPage/User';
 import { authenticate } from './store/session';
-import UploadForm from './components/UploadModal/UploadForm';
+// import UploadForm from './components/UploadModal/UploadForm';
 import SpecificVideo from './components/SpecificVideo';
 import EditVideo from './components/EditVideo';
 
@@ -39,7 +39,7 @@ function App() {
         </Route>
         <ProtectedRoute path='/upload'>
           <NavBar />
-          <UploadForm />
+          {/* <UploadForm /> */}
         </ProtectedRoute>
         <ProtectedRoute path='/videos/new'>
           <NavBar />

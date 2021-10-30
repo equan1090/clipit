@@ -13,10 +13,7 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
-  const cancel = (e) => {
-    e.preventDefault()
-    history.push('/')
-  }
+
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -109,10 +106,10 @@ const SignUpForm = () => {
               required={true}
             ></input>
           </div>
-          <button type='submit'>Sign Up</button>
-          <button
-          onClick={cancel}
-          >Cancel</button>
+          <div className='signup-btns'>
+            <button id='signup-confirm' type='submit'>Sign Up</button>
+ 
+          </div>
         </form>
 
       </div>
