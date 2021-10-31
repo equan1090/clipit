@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './UploadForm.css'
@@ -22,7 +22,7 @@ const UploadForm = () => {
 
         let errors = []
         const acceptedTypes = ["mp4", "webm", "mov", "wmv", "avi"]
-        
+
         let fileArr = video ? video.name.split('.') : null
         let fileType = video ? fileArr[fileArr.length - 1] : null
 
@@ -67,40 +67,59 @@ const UploadForm = () => {
         const file = e.target.files[0];
         setVideo(file)
     }
+    useEffect(() => {
+        setVideo(null)
+    }, [setVideo])
 
 
     return (
-        <div>
-            {errors && errors.map((error, ind) => (
-                <div className='errors' key={ind}>
-                    {error}
+        <div className='upload-wrapper'>
+            <div className='upload-container'>
+                {errors && errors.map((error, ind) => (
+                    <div className='errors' key={ind}>
+                        {error}
+                    </div>
+                ))}
+                <form onSubmit={handleSubmit}
+                className='upload-form'>
+
+                    <input type="text"
+                    placeholder='title'
+                    name='title'
+                    onChange={(e) => {setTitle(e.target.value)}}
+                    value={title}
+                    required={true}
+                    />
+
+                    <textarea name="" id="" cols="30" rows="10"
+                    placeholder='description'
+                    value={description}
+                    onChange={(e) => {setDescription(e.target.value)}} />
+
+                    <input type="file"
+                    accept="video/*"
+                    onChange={updateVideo}
+                    required={true}
+                    />
+                    <button type="submit">Submit</button>
+                    {(videoLoading)&& <p>Loading...</p>}
+                </form>
+
+            </div>
+            <div className='guidelines'>
+                <div className="guideline-title">
+                    <strong>Posting to Clip it</strong>
                 </div>
-            ))}
-            <form onSubmit={handleSubmit}
-            className='upload-form'>
+                <ol>
+                    <li>Remember the human</li>
+                    <li>Behave like you would in real life</li>
+                    <li>Look for the original source of content</li>
+                    <li>Use appropriately</li>
+                    <li>Remember, this is not a real website</li>
+                    <li>Enjoy this simple project</li>
+                </ol>
 
-                <input type="text"
-                placeholder='title'
-                name='title'
-                onChange={(e) => {setTitle(e.target.value)}}
-                value={title}
-                required={true}
-                />
-
-                <textarea name="" id="" cols="30" rows="10"
-                placeholder='description'
-                value={description}
-                onChange={(e) => {setDescription(e.target.value)}} />
-
-                <input type="file"
-                accept="video/*"
-                onChange={updateVideo}
-                required={true}
-                />
-                <button type="submit">Submit</button>
-                {(videoLoading)&& <p>Loading...</p>}
-            </form>
-
+            </div>
         </div>
     )
 }
