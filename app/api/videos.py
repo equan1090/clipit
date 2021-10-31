@@ -70,7 +70,7 @@ def edit_video(id):
 @video_routes.route('/<int:id>', methods=['DELETE'])
 def delete_video(id):
     deleted_video = Video.query.get(id)
-    
+
     if not delete_video:
         return 'Video does not exist'
 
@@ -78,7 +78,8 @@ def delete_video(id):
     delete_from_s3(video_url)
     db.session.delete(deleted_video)
     db.session.commit()
-    videos = Video.query.filter(Video.user_id == id).all()
+    videos = Video.query.all()
+    print('\n\n\nThis is my videos in backend\n\n\n\n', videos)
     return {"videos": [video.to_dict() for video in videos]}
 
 

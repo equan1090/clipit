@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { editVideoThunk, specificVideoThunk } from "../../store/video";
+import './EditVideo.css'
 const EditVideo = () => {
     const video = useSelector(store => store.videos?.videos)
     const user = useSelector((state) => state.session.user);
@@ -35,24 +36,28 @@ const EditVideo = () => {
             video_url: video?.video_url,
 
         }
- 
+
         dispatch(editVideoThunk(updatedVideo));
         history.push(`/videos/${video?.id}`)
     }
 
     return (
-        <form onSubmit={handleSubmit} className='edit-video-form'>
-            <input type="text"
-            name='title'
-            onChange={(e) => {setTitle(e.target.value)}}
-            value={title}
-            required={true}
-            />
-             <textarea name="" id="" cols="30" rows="10"
-                value={description}
-                onChange={(e) => {setDescription(e.target.value)}} />
-            <button type='submit' className='edit-form-submit'>Edit Project</button>
-        </form>
+        <div className='edit-wrapper'>
+            <div className='edit-container'>
+                <form onSubmit={handleSubmit} className='edit-video-form'>
+                    <input type="text"
+                    name='title'
+                    onChange={(e) => {setTitle(e.target.value)}}
+                    value={title}
+                    required={true}
+                    />
+                    <textarea name="" id="" cols="30" rows="10"
+                        value={description}
+                        onChange={(e) => {setDescription(e.target.value)}} />
+                    <button type='submit' className='edit-form-submit'>Edit Project</button>
+                </form>
+            </div>
+        </div>
     )
 }
 

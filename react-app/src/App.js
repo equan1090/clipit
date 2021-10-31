@@ -11,6 +11,7 @@ import EditVideo from './components/EditVideo';
 import Homepage from './components/Homepage';
 import NewVideoPage from './components/NewVideoPage';
 import PopularVideoPage from './components/PopularVideoPage';
+import UploadForm from './components/UploadForm/UploadForm';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function App() {
         </Route>
         <ProtectedRoute path='/upload'>
           <NavBar />
-   
+          <UploadForm />
         </ProtectedRoute>
         <ProtectedRoute path='/videos/new'>
           <NavBar />

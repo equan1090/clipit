@@ -72,7 +72,7 @@ const SpecificVideo = () => {
             type="button"
             onClick={() => {
               handleDeleteVideo(videoId);
-              history.push(`/users/${user.id}`);
+              history.push(`/videos/popular`);
             }}
           >
             Delete Video

@@ -50,10 +50,11 @@ export const deleteVideoThunk = (id) => async (dispatch) => {
     method: "DELETE",
   })
   if (response.ok) {
-
     const video = await response.json();
-    dispatch(specificVideoAction(id));
-    return video;
+    console.log('this is video inside thunk', video)
+    dispatch(getAllVideoAction(video));
+  } else{
+    return "error"
   }
 };
 

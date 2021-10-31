@@ -2,15 +2,40 @@
     display: flex;
     flex-direction: column;
 }
-.upload-modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .7);
-    z-index: 1000;
+.upload-container {
+    background-color: #efefef;
+    height: 50vh;
+    border-radius: 5px;
+    padding: 3rem;
+    width: 30vw;
+}
+.upload-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.upload-form input {
+    margin: 1rem 0;
+}
+.guidelines {
+    background-color: #efefef;
+    height: 50vh;
+    border-radius: 5px;
+    padding: 3rem 1.5rem;
+    margin-left: 2rem;
+    width: 20%;
+}
+ol {
+    padding: 0;
+}
+ol li {
+    margin: 1rem;
+    
+    border-bottom: solid gray 1px;
+}
+.guideline-title {
+    text-align: center;
+    color: red;
 }
