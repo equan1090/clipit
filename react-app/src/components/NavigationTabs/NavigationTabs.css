@@ -1,6 +1,13 @@
 .navigation-tabs {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 3rem 3rem;
+    box-sizing: border-box;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #efefef;
+    width: 640px;
+    left: 30%;
+    margin-top: 1rem;
+    height: 3rem;
+    border-radius: 2px;
 }
+

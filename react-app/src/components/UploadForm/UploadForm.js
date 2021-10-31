@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import {useSelector, useDispatch} from 'react-redux';
+import React, { useState } from 'react'
+import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './UploadForm.css'
 
@@ -12,12 +12,30 @@ const UploadForm = () => {
     const user = useSelector((state) => state.session.user)
     const history = useHistory();
 
+
     if(!user){
         history.push('/login')
     }
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+
+        let errors = []
+        const acceptedTypes = ["mp4", "webm", "mov", "wmv", "avi"]
+        
+        let fileArr = video ? video.name.split('.') : null
+        let fileType = video ? fileArr[fileArr.length - 1] : null
+
+        if(!video) errors.push('Please provide a video')
+        if(video && !acceptedTypes.includes(fileType)) errors.push('Filetype must be an .mp4, .webm, .mov, .wmv or an .avi')
+        if(title.length > 30) errors.push('Title must be 30 characters or less')
+        if(title.length < 5) errors.push('Title must be at least 5 characters long')
+        if(errors.length) {
+            setErrors(errors)
+            return null
+        }
+        setErrors('')
+
         const formData = new FormData();
         formData.append('video', video)
         formData.append('title', title)
@@ -37,9 +55,9 @@ const UploadForm = () => {
         } else{
 
             setVideoLoading(false)
-            const {errors} = res;
-            setErrors(errors);
-            return
+            // const {errors} = res;
+            // setErrors(errors);
+            // return null
         }
 
         setVideoLoading(false)
@@ -53,10 +71,14 @@ const UploadForm = () => {
 
     return (
         <div>
-
+            {errors && errors.map((error, ind) => (
+                <div className='errors' key={ind}>
+                    {error}
+                </div>
+            ))}
             <form onSubmit={handleSubmit}
             className='upload-form'>
-                {errors && <h3>{errors}</h3>}
+
                 <input type="text"
                 placeholder='title'
                 name='title'
@@ -78,6 +100,7 @@ const UploadForm = () => {
                 <button type="submit">Submit</button>
                 {(videoLoading)&& <p>Loading...</p>}
             </form>
+
         </div>
     )
 }

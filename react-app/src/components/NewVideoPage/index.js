@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+
 import { getAllVideoThunk } from "../../store/video";
 import './NewVideoPage.css'
 import VideoCard from "../VideoCard";
@@ -17,8 +17,8 @@ function NewVideoPage() {
 
     return (
         <>
-            <NavigationTabs />
             <div className='main-content-area'>
+                <NavigationTabs />
                 {videos?.map((video) => (
                     <div key={video.id} className='one-card'>
                         <VideoCard video={video}/>

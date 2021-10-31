@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   return (
     <div className='form-container'>
-      <h3 id='splash-title'>Clip It</h3>
+      <h1 id='splash-title'>Clip It</h1>
       <form onSubmit={onLogin}>
         <div>
           {errors.map((error, ind) => (
@@ -62,7 +62,7 @@ const LoginForm = () => {
         <div>
           <button id='login-btn' type='submit'>Login</button>
         </div>
-        <button onClick={() => {
+        <button id='demo-btn' onClick={() => {
           setEmail('demo@aa.io')
           setPassword('password')
         }} type='submit' className='demo-btn'>Sign in as Demo User</button>

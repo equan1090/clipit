@@ -7,16 +7,16 @@ import { popularVideoThunk } from "../../store/video";
 function PopularVideoPage() {
     const dispatch = useDispatch()
     const videos = useSelector((state) => state.videos.videos?.videos)
-    console.log('', videos)
+
     useEffect(() => {
         dispatch(popularVideoThunk())
     }, [dispatch])
 
-    console.log()
+    
     return(
         <>
-            <NavigationTabs />
             <div className='main-content-area'>
+                <NavigationTabs />
                 {videos?.map((video) => (
                     <div key={video.id} className='one-card'>
                         <VideoCard video={video}/>

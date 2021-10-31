@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { editVideoThunk, specificVideoThunk } from "../../store/video";
 const EditVideo = () => {
     const video = useSelector(store => store.videos?.videos)
@@ -13,7 +13,7 @@ const EditVideo = () => {
     const dispatch = useDispatch()
     const {videoId} = useParams();
 
-    console.log('THIS IS ID', videoId)
+
 
     useEffect(() => {
         dispatch(specificVideoThunk(videoId))
@@ -35,7 +35,7 @@ const EditVideo = () => {
             video_url: video?.video_url,
 
         }
-        console.log('Updated Video', updatedVideo)
+ 
         dispatch(editVideoThunk(updatedVideo));
         history.push(`/videos/${video?.id}`)
     }

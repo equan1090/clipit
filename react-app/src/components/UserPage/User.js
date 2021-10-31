@@ -63,7 +63,7 @@ function User() {
     })
 
   }
-  console.log(videos)
+ 
 
   if (featured){
 
@@ -92,7 +92,7 @@ function User() {
           </div>
           <div className='user-uploads'>
             {videos?.videos?.map(video => (
-              <div className='video-cards'>
+              <div key={video.id} className='video-cards'>
                   {video?.title}
                 <Link to={`/videos/${video.id}`}>
                   <ReactPlayer
@@ -113,7 +113,7 @@ function User() {
       <>
         <div className='profile-container'>
           <div className='new-user-pic'>
-            <img className='new-user-pic' src={user?.avatar_url} alt="New User Image" />
+            <img className='new-user-pic' src={user?.avatar_url} alt="" />
           </div>
           <div className='new-username'>
             <h2>{user?.username}</h2>

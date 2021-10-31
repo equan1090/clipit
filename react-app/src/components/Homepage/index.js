@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-// import { getAllVideoThunk } from "../../store/video";
+import githublogo from '../../images/github-logo.png'
+import linkedinlogo from '../../images/linkedin.png'
+
 import './Homepage.css'
 import LoginForm from "../auth/LoginForm";
-import SignUpForm from "../auth/SignUpForm";
+
 const Homepage = () => {
-    const dispatch = useDispatch()
-    const user = useSelector((state) => state.session.user)
-    const [featuredVideo, setFeaturedVideo] = useState(null)
-    // const videos = useSelector((state) => state.videos)
+
     const [videos, setVideos] = useState({})
-    // useEffect(() => {
-    //     dispatch(getAllVideoThunk())
-    // }, [dispatch])
 
 
     useEffect(() => {
@@ -24,19 +20,23 @@ const Homepage = () => {
             setVideos(videos);
         })();
     }, [])
-    console.log(videos)
+    
     let featured
     if(videos.videos?.length > 0) {
         featured = videos.videos?.reduce((prev, current) => {
             return (prev.likes_count > current.likes_count) ? prev : current
         })
     }
-    console.log('this is featured',featured)
+
 
 
     return (
         <>
-          <h1>Share clips like these</h1>
+          <div className='text-wrapper'>
+            <ul className='dynamic-text'>
+              <li><span>Share clips like these & impress</span></li>
+            </ul>
+          </div>
           <div className="signup-login-container">
             <div className="home-video-area">
               <ReactPlayer
@@ -49,9 +49,17 @@ const Homepage = () => {
                   <LoginForm />
                 </div>
                 <div className="sign-up-area">
-                  Signup
+                  Not registered? Sign up &nbsp;<Link to='/sign-up' className='sign-up-here'>here</Link>
                 </div>
             </div>
+          <div className='footer'>
+            <a target="_blank" href="https://github.com/equan1090" rel="noreferrer">
+              <img src={githublogo} alt="" />
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/eric-quan-821139190/" rel="noreferrer">
+              <img id='linkedin' src={linkedinlogo} alt="" />
+            </a>
+          </div>
           </div>
 
         </>

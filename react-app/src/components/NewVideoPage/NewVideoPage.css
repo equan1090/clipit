@@ -1,3 +1,13 @@
 .one-card {
     margin: 2rem;
 }
+.main-content-area {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../../images/LeonaDiana.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    justify-content: center;
+    align-items: center;
+}

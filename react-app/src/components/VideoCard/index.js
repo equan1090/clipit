@@ -8,7 +8,7 @@ function VideoCard(props) {
     const [videoOwner, setVideoOwner] = useState({})
     const video = props?.video
 
-    console.log('This is my video', video)
+
     useEffect(() => {
 
         (async () => {
@@ -17,7 +17,7 @@ function VideoCard(props) {
             setVideoOwner(user)
         })();
 
-    }, [props.video?.user_id])
+    }, [video.user_id])
 
     return(
         <>

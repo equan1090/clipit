@@ -1,0 +1,16 @@
+#custom-modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+}
+
+.profile-modal-container {
+    position: fixed;
+    background-color: #252525;
+    border: solid black 1px;
+    z-index: 1000;
+
+}

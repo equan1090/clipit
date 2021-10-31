@@ -32,13 +32,12 @@ export const deleteCommentThunk = (id, videoId) => async (dispatch) => {
 };
 
 export const editCommentThunk = (comment, id) => async(dispatch) => {
-  console.log('this is comment to be editted', comment)
   const res = await fetch(`/api/videos/${id}/comments`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(comment)
   })
-  console.log('this is res')
+
   if(res.ok){
 
     const editted = await res.json();
@@ -82,6 +81,7 @@ function commentReducer(state = initialState, action) {
       };
     case LOAD_COMMENT:
       return action.payload.comments;
+
     case DELETE_COMMENT:
       return action.payload.comments;
     default:
