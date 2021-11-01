@@ -6,6 +6,7 @@ import './EditVideo.css'
 const EditVideo = () => {
     const video = useSelector(store => store.videos?.videos)
     const user = useSelector((state) => state.session.user);
+    const [errors, setErrors] = useState([])
 
     const [title, setTitle] = useState(video?.title)
     const [description, setDescription] = useState(video?.description)
@@ -26,6 +27,15 @@ const EditVideo = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        let errors = []
+        if(title.length < 5 || title.length > 30) errors.push('Title must be between 5 and 30 characters')
+        if(errors.length) {
+            setErrors(errors)
+            return null
+        }
+        setErrors([])
+
         const updatedVideo = {
             id: videoId,
             title,
@@ -45,6 +55,11 @@ const EditVideo = () => {
         <div className='edit-wrapper'>
             <div className='edit-container'>
                 <form onSubmit={handleSubmit} className='edit-video-form'>
+                    <div>
+                        {errors.map((error, idx) => (
+                            <div className='errors' key={idx}>{error}</div>
+                        ))}
+                    </div>
                     <input type="text"
                     name='title'
                     onChange={(e) => {setTitle(e.target.value)}}
