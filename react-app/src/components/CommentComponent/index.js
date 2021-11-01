@@ -2,15 +2,47 @@ import React, { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCommentThunk, editCommentThunk } from "../../store/comment";
+import './CommentComponent.css'
+import deleteIcon from '../../images/delete.png'
+import editIcon from '../../images/edit-icon.png'
 function CommentComponent({comment}) {
     const user = useSelector((state) => state.session.user);
     const dispatch = useDispatch()
     const {videoId} = useParams()
-
-
-
+    const [isOpen, setIsOpen] = useState(false)
     const [content, setContent] = useState(comment?.content)
     const [showEdit, setShowEdit] = useState(false)
+
+    const toggle = () => {
+      setIsOpen(!isOpen)
+    }
+    function TooLong ({comment}) {
+      if(comment.content.length >= 260){
+        return(
+          <button id='showbtn' onClick={toggle}>
+            {isOpen ? 'Show Less' : 'Show More'}
+          </button>
+        )
+      } else{
+        return null;
+      }
+    }
+    function RenderAll({comment}) {
+      if(isOpen) {
+        return (
+          <div>
+            {comment.content}
+          </div>
+        )
+      }
+      return(
+        <div>
+          {comment.content.slice(0, 260)}
+        </div>
+      )
+    }
+
+
 
     const handleDeleteComment = (commentId) => {
       dispatch(deleteCommentThunk(commentId, videoId));
@@ -38,15 +70,17 @@ function CommentComponent({comment}) {
         return (
           <div className="more-option">
             <button className="edit-comment"
-            onClick={editComment}
-            >Edit</button>
+            onClick={editComment}>
+              <img src={editIcon} alt="" />
+            </button>
             <button
               className="delete-comment"
+
               onClick={() => {
                 handleDeleteComment(comment.comment?.id);
               }}
             >
-              Delete
+              <img src={deleteIcon} alt="" />
             </button>
           </div>
         );
@@ -69,11 +103,6 @@ function CommentComponent({comment}) {
                     <NavLink to={`/users/${comment?.users?.id}`}>
                       {comment?.users?.username}
                     </NavLink>
-                  </div>
-                  <div className="option">
-                    <button>
-                      {/* //Placeholder for button */}
-                    </button>
                   </div>
                 </div>
 
@@ -107,19 +136,18 @@ function CommentComponent({comment}) {
                         alt=""
                       />
                     </NavLink>
-                    <NavLink to={`/users/${comment?.users?.id}`}>
+                    <NavLink className='comment-user' to={`/users/${comment?.users?.id}`}>
                       {comment?.users?.username}
                     </NavLink>
                   </div>
-                  <div className="option">
-                    <button>
-                      {/* <img src="../../assets/optionIcon.svg" alt="" /> */}
-                    </button>
-                  </div>
+
                 </div>
                 <div className="comment-content">
-                  {comment.content}
-                  </div>
+                  <RenderAll comment={comment}/>
+                </div>
+                <div className='showmore-btn'>
+                  <TooLong comment={comment}/>
+                </div>
                 <EditDeleteComment comment={comment} />
               </div>
           </>
