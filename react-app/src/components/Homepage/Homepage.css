@@ -47,7 +47,7 @@
     grid-template-rows: 1fr 1fr;
     gap: 1px 26px;
     grid-auto-flow: row;
-    
+
     grid-template-areas:
       "home-video-area home-video-area login-and-signup-area"
       ". about .";
@@ -138,15 +138,12 @@ a:visited {
 a.sign-up-here:visited {
     color: red;
 }
-/*
-
-.login-signup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+#login-btn {
+    background-color: #0079d3;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    border-radius: 20px;
+    color: white;
+    height: 1.5rem;
 }
-
-.signup-prompt {
-    background-color: red;
-} */
