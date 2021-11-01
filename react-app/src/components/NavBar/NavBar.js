@@ -3,14 +3,12 @@ import {Link, NavLink, useHistory } from 'react-router-dom';
 
 import {useSelector} from 'react-redux'
 import LogoutButton from '../auth/LogoutButton';
-import UploadForm from '../UploadForm/UploadForm';
 import Modal from '../ProfileModal/Modal';
-import UploadModal from '../UploadModal/UploadModal';
 import uploadImage from '../../images/upload-icon-20631.png'
 import './NavBar.css'
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [uploadOpen, setUploadOpen] = useState(false)
+
   const user = useSelector(state => state.session.user)
   const history = useHistory()
 
@@ -35,7 +33,7 @@ const NavBar = () => {
       <nav className='top-nav-container'>
         <div className='top-nav-menu'>
           <div className='top-nav-left'>
-            <NavLink to='/' exact={true} activeClassName='active'>
+            <NavLink id='home-btn' to='/' exact={true} activeClassName='active'>
               Home
             </NavLink>
             <div className='upload-btn'>

@@ -6,10 +6,3 @@ body {
     margin: 0;
 }
 
-a {
-    color: purple;
-}
-a:visited {
-    color: inherit;
-    text-decoration: none;
-}

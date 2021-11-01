@@ -108,7 +108,7 @@ function CommentComponent({comment}) {
 
           <form onSubmit={handleSubmit}>
               <textarea
-                // onKeyPress={keyPress}
+
                 cols="50"
                 rows="5"
                 placeholder="Comment"

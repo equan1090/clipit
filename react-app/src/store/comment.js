@@ -2,15 +2,6 @@ const ADD_COMMENT = "ADD";
 const LOAD_COMMENT = "LOAD/COMMENT";
 const DELETE_COMMENT = "DELETE/COMMENT";
 
-// const addCommentAction = (comments) => ({
-//   type: ADD_COMMENT,
-//   payload: comments,
-// });
-
-// const deleteCommentAction = (comments) => ({
-//   type: DELETE_COMMENT,
-//   payload: comments,
-// });
 
 
 const loadCommentAction = (comments) => ({

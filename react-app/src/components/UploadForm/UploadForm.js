@@ -55,9 +55,7 @@ const UploadForm = () => {
         } else{
 
             setVideoLoading(false)
-            // const {errors} = res;
-            // setErrors(errors);
-            // return null
+
         }
 
         setVideoLoading(false)

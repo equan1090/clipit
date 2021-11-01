@@ -79,7 +79,7 @@ def delete_video(id):
     db.session.delete(deleted_video)
     db.session.commit()
     videos = Video.query.all()
-    print('\n\n\nThis is my videos in backend\n\n\n\n', videos)
+    
     return {"videos": [video.to_dict() for video in videos]}
 
 

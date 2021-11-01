@@ -45,9 +45,7 @@ function VideoCard(props) {
                         </div>
                     </Link>
                 </div>
-                {/* <div className='card-comments'>
 
-                </div> */}
             </div>
         </>
     )

@@ -1,34 +1,26 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import ReactPlayer from "react-player";
 import githublogo from '../../images/github-logo.png'
 import linkedinlogo from '../../images/linkedin.png'
-
 import './Homepage.css'
 import LoginForm from "../auth/LoginForm";
-
+import { getAllVideoThunk } from "../../store/video";
 const Homepage = () => {
-
-    const [videos, setVideos] = useState({})
-
+    const dispatch = useDispatch()
+    const videos = useSelector(state => state.videos.videos)
 
     useEffect(() => {
-        (async () => {
-            const res = await fetch('/api/videos')
-            const videos = await res.json();
-            setVideos(videos);
-        })();
-    }, [])
-    
+      dispatch(getAllVideoThunk())
+    }, [dispatch])
+
     let featured
-    if(videos.videos?.length > 0) {
-        featured = videos.videos?.reduce((prev, current) => {
+    if(videos?.videos?.length > 0) {
+        featured = videos?.videos?.reduce((prev, current) => {
             return (prev.likes_count > current.likes_count) ? prev : current
         })
     }
-
-
 
     return (
         <>
