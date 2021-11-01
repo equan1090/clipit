@@ -1,5 +1,5 @@
 # Clip It!
-Clip It is a video sharing platform loosely inspired by[Twitch](https://twitch.tv) and [Reddit](https://www.reddit.com/). It mimicks the post sharing features of Reddit while sharing some styling of both Reddit and Twitch
+Clip It is a video sharing platform loosely inspired by [Twitch](https://twitch.tv) and [Reddit](https://www.reddit.com/). It mimicks the post sharing features of Reddit while sharing some styling of both Reddit and Twitch
 
 ## Live site
 
