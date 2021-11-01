@@ -37,3 +37,10 @@
 .card-owner a:visited {
     color: inherit;
 }
+
+.video-title a{
+    color: black
+}
+.video-title a:visited{
+    color: inherit;
+}
