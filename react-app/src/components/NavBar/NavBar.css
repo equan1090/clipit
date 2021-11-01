@@ -56,5 +56,16 @@ ul {
     cursor: pointer;
 }
 #home-btn {
-    color: #551a8b
+    color: black;
+}
+#home-btn:visited {
+    color: inherit;
+}
+
+.top-nav-middle a{
+    color: black;
+}
+
+.top-nav-middle a:visited{
+    color: black;
 }

@@ -41,6 +41,9 @@ const NavBar = () => {
             </div>
           </div>
           <div className='top-nav-middle'>
+            <Link to='/videos/popular'>
+              <h1>Clip It</h1>
+            </Link>
           </div>
           <div className='top-nav-left'>
             <img className='profile-pic' onClick={() => setIsOpen(true)} src={user.avatar_url} alt="" />
