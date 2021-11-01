@@ -31,3 +31,9 @@
     height: 36px;
     width: 36px;
 }
+.card-owner a{
+    color: black;
+}
+.card-owner a:visited {
+    color: inherit;
+}

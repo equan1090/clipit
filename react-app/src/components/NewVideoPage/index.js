@@ -22,7 +22,6 @@ function NewVideoPage() {
                 {videos?.map((video) => (
                     <div key={video.id} className='one-card'>
                         <VideoCard video={video}/>
-
                     </div>
                 ))}
             </div>
