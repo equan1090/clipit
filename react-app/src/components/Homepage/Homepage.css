@@ -47,6 +47,7 @@
     grid-template-rows: 1fr 1fr;
     gap: 1px 26px;
     grid-auto-flow: row;
+    
     grid-template-areas:
       "home-video-area home-video-area login-and-signup-area"
       ". about .";

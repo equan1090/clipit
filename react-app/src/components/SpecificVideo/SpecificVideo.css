@@ -21,6 +21,9 @@
     height: 200px
 }
 
+#specific-user {
+    color: white;
+}
 
 .comment-user {
     display: flex;
@@ -53,4 +56,22 @@
 .comment-content {
     font-family: Arial, Helvetica, sans-serif;
     color: white;
+}
+
+.video-description {
+    width: 640px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.description-area-wrapper {
+    display: flex;
+    justify-content: center;
+}
+#post-comment-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #AAAAAA
 }

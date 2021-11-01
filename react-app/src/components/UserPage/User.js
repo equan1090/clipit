@@ -63,7 +63,7 @@ function User() {
     })
 
   }
- 
+
 
   if (featured){
 
@@ -72,7 +72,7 @@ function User() {
         <div className='profile-main'>
             <h1>Featured</h1>
           <div className='profile-featured-video'>
-            <h3><Link to={`/videos/${featured?.id}`}>{featured?.title}</Link></h3>
+            <h2><Link id='featured-title' to={`/videos/${featured?.id}`}>{featured?.title}</Link></h2>
             <div className='featured-area'>
               <ReactPlayer
                 controls={true}

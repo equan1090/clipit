@@ -84,7 +84,7 @@ const UploadForm = () => {
                 className='upload-form'>
 
                     <input type="text"
-                    placeholder='title'
+                    placeholder='Title'
                     name='title'
                     onChange={(e) => {setTitle(e.target.value)}}
                     value={title}
@@ -92,7 +92,7 @@ const UploadForm = () => {
                     />
 
                     <textarea name="" id="" cols="30" rows="10"
-                    placeholder='description'
+                    placeholder='Description'
                     value={description}
                     onChange={(e) => {setDescription(e.target.value)}} />
 
@@ -111,10 +111,10 @@ const UploadForm = () => {
                     <strong>Posting to Clip it</strong>
                 </div>
                 <ol>
-                    <li>Remember the human</li>
                     <li>Behave like you would in real life</li>
                     <li>Look for the original source of content</li>
                     <li>Use appropriately</li>
+                    <li>Follow community guidelines</li>
                     <li>Remember, this is not a real website</li>
                     <li>Enjoy this simple project</li>
                 </ol>
