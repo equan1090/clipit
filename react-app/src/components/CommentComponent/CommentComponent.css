@@ -30,3 +30,10 @@
 .comment-user {
     color: white;
 }
+.post-comment-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #AAAAAA
+}

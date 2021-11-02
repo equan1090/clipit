@@ -116,8 +116,8 @@ function CommentComponent({comment}) {
                 required={true}
                 onChange={(e) => setContent(e.target.value)}
               />
-              <button type="submit"
-              >Submit</button>
+              <button className='post-comment-btn' type="submit"
+              >Post</button>
           </form>
         </>
       )

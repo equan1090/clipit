@@ -99,7 +99,7 @@ const UploadForm = () => {
                     onChange={updateVideo}
                     required={true}
                     />
-                    <button type="submit">Submit</button>
+                    <button className='upload-video-btn' type="submit">Submit</button>
                     {(videoLoading)&& <p>Loading...</p>}
                 </form>
 
