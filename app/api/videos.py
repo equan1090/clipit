@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Video, db, Comment
+from app.models import Video, db, Comment, video_likes
 from app.forms import VideoForm, CommentForm, EditCommentForm
 
 from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
@@ -79,7 +79,7 @@ def delete_video(id):
     db.session.delete(deleted_video)
     db.session.commit()
     videos = Video.query.all()
-    
+
     return {"videos": [video.to_dict() for video in videos]}
 
 
@@ -142,3 +142,11 @@ def edit_comment(id):
 
     else:
         return "bad data in edit"
+
+# LIKES ROUTES
+
+@video_routes.route('/likes')
+def likes():
+    likes = video_likes.query.all()
+    print('Likes in backend route', likes)
+    return likes

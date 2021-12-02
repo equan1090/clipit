@@ -1,20 +1,20 @@
 from .db import db
 from datetime import datetime
-video_likes = db.Table(
-    'video_likes',
-    db.Column(
-        "user_id",
-        db.Integer,
-        db.ForeignKey("users.id"),
-        primary_key=True
-    ),
-    db.Column(
-        "video_id",
-        db.Integer,
-        db.ForeignKey("videos.id"),
-        primary_key=True
-    )
-)
+# video_likes = db.Table(
+#     'video_likes',
+#     db.Column(
+#         "user_id",
+#         db.Integer,
+#         db.ForeignKey("users.id"),
+#         primary_key=True
+#     ),
+#     db.Column(
+#         "video_id",
+#         db.Integer,
+#         db.ForeignKey("videos.id"),
+#         primary_key=True
+#     )
+# )
 
 class Video(db.Model):
     __tablename__ = 'videos'
@@ -30,11 +30,17 @@ class Video(db.Model):
 
     # relationships
 
+    # users = db.relationship(
+    #     "User",
+    #     secondary=video_likes,
+    #     back_populates="videos"
+    # )
     users = db.relationship(
-        "User",
-        secondary=video_likes,
-        back_populates="videos"
+        'User', back_populates='videos'
     )
+
+    likes = db.relationship('Like', back_populates='videos', cascade="all, delete")
+
 
     comments = db.relationship(
         'Comment',

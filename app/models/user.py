@@ -1,5 +1,4 @@
 from .db import db
-from .video import video_likes
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -15,11 +14,17 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     # relationships
+    # videos = db.relationship(
+    #     "Video",
+    #     secondary=video_likes,
+    #     back_populates='users'
+    # )
+
     videos = db.relationship(
-        "Video",
-        secondary=video_likes,
-        back_populates='users'
+        "Video", back_populates="users", cascade="all, delete"
     )
+
+    likes = db.relationship("Like", back_populates='users')
 
     comments = db.relationship(
         "Comment",
