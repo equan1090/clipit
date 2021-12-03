@@ -28,13 +28,6 @@ class Video(db.Model):
     video_url = db.Column(db.String(300))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
-    # relationships
-
-    # users = db.relationship(
-    #     "User",
-    #     secondary=video_likes,
-    #     back_populates="videos"
-    # )
     users = db.relationship(
         'User', back_populates='videos'
     )

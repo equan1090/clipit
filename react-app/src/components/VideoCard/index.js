@@ -2,12 +2,18 @@ import React, {useEffect, useState} from "react";
 import './VideoCard.css'
 import {Link} from 'react-router-dom'
 import ReactPlayer from "react-player";
+import { useDispatch, useSelector } from "react-redux";
+import { getCommentThunk } from "../../store/comment";
 
 function VideoCard(props) {
 
     const [videoOwner, setVideoOwner] = useState({})
     const video = props?.video
+    const dispatch = useDispatch();
+    const comments = useSelector((state) => state.comments);
 
+    // console.log('this is comments', comments)
+    console.log('this is video', video)
 
     useEffect(() => {
 
@@ -18,6 +24,10 @@ function VideoCard(props) {
         })();
 
     }, [video.user_id])
+
+    useEffect(() => {
+        dispatch(getCommentThunk(video?.id));
+    }, [dispatch, video])
 
     return(
         <>
@@ -44,6 +54,10 @@ function VideoCard(props) {
                             />
                         </div>
                     </Link>
+                    <div className='more-video-info'>
+                        <p>{video?.likes_count} Likes</p>
+                        <p>{video?.comments?.comments?.length} Comments</p>
+                    </div>
                 </div>
 
             </div>

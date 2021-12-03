@@ -44,3 +44,6 @@
 .video-title a:visited{
     color: inherit;
 }
+.more-video-info p {
+    margin: 0;
+}
