@@ -9,11 +9,10 @@ function VideoCard(props) {
 
     const [videoOwner, setVideoOwner] = useState({})
     const video = props?.video
+    const likes = props?.video?.likes
     const dispatch = useDispatch();
-    const comments = useSelector((state) => state.comments);
 
-    // console.log('this is comments', comments)
-    console.log('this is video', video)
+
 
     useEffect(() => {
 
@@ -55,8 +54,8 @@ function VideoCard(props) {
                         </div>
                     </Link>
                     <div className='more-video-info'>
-                        <p>{video?.likes_count} Likes</p>
-                        <p>{video?.comments?.comments?.length} Comments</p>
+                        <p>{likes.length} Likes</p>
+                        <p>{video?.comments?.length} Comments</p>
                     </div>
                 </div>
 

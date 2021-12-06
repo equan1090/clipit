@@ -28,6 +28,7 @@ export const popularVideoThunk = () => async(dispatch) => {
   const res = await fetch("/api/videos/popular")
   if(res.ok) {
     const videos = await res.json();
+    videos.videos.sort((a, b) => (b.likes.length > a.likes.length)? 1: -1)
     dispatch(getAllVideoAction(videos))
   } else{
     return "cannot get popular videos"

@@ -1,20 +1,6 @@
 from .db import db
 from datetime import datetime
-# video_likes = db.Table(
-#     'video_likes',
-#     db.Column(
-#         "user_id",
-#         db.Integer,
-#         db.ForeignKey("users.id"),
-#         primary_key=True
-#     ),
-#     db.Column(
-#         "video_id",
-#         db.Integer,
-#         db.ForeignKey("videos.id"),
-#         primary_key=True
-#     )
-# )
+
 
 class Video(db.Model):
     __tablename__ = 'videos'
@@ -28,9 +14,7 @@ class Video(db.Model):
     video_url = db.Column(db.String(300))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
-    users = db.relationship(
-        'User', back_populates='videos'
-    )
+    users = db.relationship('User', back_populates='videos')
 
     likes = db.relationship('Like', back_populates='videos', cascade="all, delete")
 
@@ -53,5 +37,6 @@ class Video(db.Model):
             'created_at': self.created_at,
             'title': self.title,
             # 'users': self.users.to_dict(),
-            'comments': {"comments": [comment.to_dict() for comment in self.comments]}
+            "comments": [comment.to_dict() for comment in self.comments],
+            "likes": [like.to_dict() for like in self.likes],
         }

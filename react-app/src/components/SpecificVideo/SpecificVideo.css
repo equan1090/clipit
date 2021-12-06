@@ -39,6 +39,11 @@
     border-radius: 50%;
     margin: 0 0.5rem 0 0;
 }
+#like-form {
+    display: flex;
+    align-items: center;
+    color: white;
+}
 
 .comment-area-wrapper {
     display: flex;
@@ -74,4 +79,36 @@
     font-size: 20px;
     cursor: pointer;
     color: #AAAAAA
+}
+
+/* #like-btn {
+    width: 16px;
+    height: 16px;
+} */
+.like-btn-container {
+
+}
+.like-btn {
+    border: none;
+    background: none;
+
+}
+
+#like-img {
+    filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(312deg) brightness(100%) contrast(107%);
+ /* filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%); */
+}
+#like-img:hover {
+    cursor: pointer;
+    filter: invert(21%) sepia(91%) saturate(2229%) hue-rotate(327deg) brightness(87%) contrast(88%);
+}
+
+.video-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+    width: 50%;
+
+
 }
