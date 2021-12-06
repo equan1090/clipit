@@ -21,8 +21,7 @@ export const addLikeThunk = (like) => async (dispatch) => {
 }
 
 export const deleteSingleLike = (id) => async (dispatch) => {
-    const like_id = id
-    console.log('\n\n\nthis is id\n\n\n', like_id)
+
     const res = await fetch("/api/videos/likes", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },

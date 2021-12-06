@@ -12,7 +12,7 @@ function PopularVideoPage() {
         dispatch(popularVideoThunk())
     }, [dispatch])
 
-    console.log('these are videos', videos)
+
     return(
         <>
             <div className='main-content-area'>

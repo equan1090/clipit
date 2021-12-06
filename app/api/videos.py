@@ -15,7 +15,7 @@ def get_video(id):
 @video_routes.route('/popular')
 def get_popular():
     videos = Video.query
-    print('\n\n\n\n\n\nThis is videos bakcend \n\n\n', videos)
+
     videos = videos.order_by(Video.likes_count.desc()).all()
     return {
         'videos': [video.to_dict() for video in videos]
@@ -181,10 +181,10 @@ def add_like():
 
 @video_routes.route('/likes', methods=["DELETE"])
 def delete_like():
-    print('\n\n\nmade it here in likes\n\n\n')
+
     form = DeleteLike()
     data = form.data
-    print('this is data', data)
+
     form['csrf_token'].data = request.cookies['csrf_token']
     like = Like.query.filter(Like.id == data["like_id"]).first()
 

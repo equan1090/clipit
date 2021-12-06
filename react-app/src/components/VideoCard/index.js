@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import './VideoCard.css'
 import {Link} from 'react-router-dom'
 import ReactPlayer from "react-player";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCommentThunk } from "../../store/comment";
 
 function VideoCard(props) {

@@ -28,10 +28,8 @@ const SpecificVideo = () => {
   const likes = useSelector((state) => state.likes)
   let userLiked = likes.filter(like => like?.user_id === user?.id && like?.video_id === videos?.id)
   let videoLiked = likes.filter(like => like?.video_id === videos?.id)
-  const [likedStatus, setLikedStatus] = useState(false)
 
-  console.log('likedStatus', likedStatus)
-  console.log('userLiked', userLiked)
+
 
 
   const toggle = () => {
@@ -67,7 +65,7 @@ const SpecificVideo = () => {
 
 
 
-  // Gets
+  // Gets all comments, specific video, and likes
   useEffect(() => {
     dispatch(getCommentThunk(videoId));
     dispatch(specificVideoThunk(videoId));
@@ -75,17 +73,8 @@ const SpecificVideo = () => {
   }, [dispatch, videoId]);
 
 
-  // useEffect(() => {
-  //   if(userLiked.length){
-  //     setLikedStatus(true)
-  //   }
-  //   if(likedStatus){
-  //     document.getElementById("like-img").style.filter = "invert(0%) sepia(0%) saturate(7500%) hue-rotate(312deg) brightness(100%) contrast(107%)"
-  //   }
-  // }, [likedStatus])
 
-
-
+  // Sets the video owner
   useEffect(() => {
     if (!videos?.user_id) {
       return;
@@ -102,6 +91,7 @@ const SpecificVideo = () => {
 
   };
 
+  //Creates a new comment
   const handleSubmit = (e) => {
     e.preventDefault();
     const newComment = {
@@ -114,7 +104,8 @@ const SpecificVideo = () => {
   };
 
 
-
+  //Display buttons for edit and deleting a video
+  //Only works if logged in user owns the video
   function EditDeleteVideo() {
     if (user && videos?.user_id === user?.id) {
       return (
@@ -144,15 +135,16 @@ const SpecificVideo = () => {
       return null;
     }
   }
+
+  // Add and Delete likes from video
   const likeBtn = (e) => {
     e.preventDefault()
 
     if(userLiked.length) {
       dispatch(deleteSingleLike(userLiked[0]?.id))
-      // document.getElementById("like-img").style.filter = "invert(0%) sepia(0%) saturate(7500%) hue-rotate(312deg) brightness(100%) contrast(107%)"
+
     }else {
       dispatch(addLikeThunk({user_id: user?.id, video_id: videos?.id}))
-      // document.getElementById("like-img").style.filter = "invert(21%) sepia(91%) saturate(2229%) hue-rotate(327deg) brightness(87%) contrast(88%)"
     }
 
   }
@@ -188,6 +180,9 @@ const SpecificVideo = () => {
           <EditDeleteVideo id={comments?.id} />
         </div>
       </div>
+
+      {/* Video description area */}
+
       <div className='description-area-wrapper'>
         <div className='video-description'>
           <RenderAll />
@@ -196,6 +191,8 @@ const SpecificVideo = () => {
         <div className='showmore-btn'>
         </div>
       </div>
+
+      {/* Comment input box */}
       <div className="add-comment-area">
 
         <form onSubmit={handleSubmit}>
@@ -211,6 +208,7 @@ const SpecificVideo = () => {
         </form>
 
       </div>
+      {/* Comment List Area */}
       <div className="comment-area-wrapper">
         <div className="comment-list">
           {comments?.map((comment) => (
