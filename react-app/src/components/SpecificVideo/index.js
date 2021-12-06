@@ -11,6 +11,9 @@ import {
 import "./SpecificVideo.css";
 import editIcon from '../../images/edit-icon.png'
 import deleteIcon from '../../images/delete.png'
+import heartIcon from '../../images/heart.svg'
+import { addLikeThunk, deleteSingleLike, setAllLikes } from "../../store/like";
+
 
 const SpecificVideo = () => {
   const user = useSelector((state) => state.session.user);
@@ -22,6 +25,14 @@ const SpecificVideo = () => {
   const [commentContent, setCommentContent] = useState("");
   const [videoOwner, setVideoOwner] = useState({})
   const [isOpen, setIsOpen] = useState(false)
+  const likes = useSelector((state) => state.likes)
+  let userLiked = likes.filter(like => like?.user_id === user?.id && like?.video_id === videos?.id)
+  let videoLiked = likes.filter(like => like?.video_id === videos?.id)
+  const [likedStatus, setLikedStatus] = useState(false)
+
+  console.log('likedStatus', likedStatus)
+  console.log('userLiked', userLiked)
+
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -53,11 +64,27 @@ const SpecificVideo = () => {
     }
   }
 
+
+
+
   // Gets
   useEffect(() => {
     dispatch(getCommentThunk(videoId));
     dispatch(specificVideoThunk(videoId));
+    dispatch(setAllLikes())
   }, [dispatch, videoId]);
+
+
+  // useEffect(() => {
+  //   if(userLiked.length){
+  //     setLikedStatus(true)
+  //   }
+  //   if(likedStatus){
+  //     document.getElementById("like-img").style.filter = "invert(0%) sepia(0%) saturate(7500%) hue-rotate(312deg) brightness(100%) contrast(107%)"
+  //   }
+  // }, [likedStatus])
+
+
 
   useEffect(() => {
     if (!videos?.user_id) {
@@ -85,6 +112,8 @@ const SpecificVideo = () => {
     dispatch(addCommentThunk(newComment, videoId));
     setCommentContent("");
   };
+
+
 
   function EditDeleteVideo() {
     if (user && videos?.user_id === user?.id) {
@@ -115,6 +144,19 @@ const SpecificVideo = () => {
       return null;
     }
   }
+  const likeBtn = (e) => {
+    e.preventDefault()
+
+    if(userLiked.length) {
+      dispatch(deleteSingleLike(userLiked[0]?.id))
+      // document.getElementById("like-img").style.filter = "invert(0%) sepia(0%) saturate(7500%) hue-rotate(312deg) brightness(100%) contrast(107%)"
+    }else {
+      dispatch(addLikeThunk({user_id: user?.id, video_id: videos?.id}))
+      // document.getElementById("like-img").style.filter = "invert(21%) sepia(91%) saturate(2229%) hue-rotate(327deg) brightness(87%) contrast(88%)"
+    }
+
+  }
+
 
   return (
     <div>
@@ -132,8 +174,19 @@ const SpecificVideo = () => {
         </div>
         <ReactPlayer controls={true} url={videos?.video_url} />
       </div>
-      <div>
-        <EditDeleteVideo id={comments?.id} />
+      <div className='video-icons'>
+        <div className='like-btn-container'>
+          <form id='like-form' onSubmit={likeBtn}>
+            {videoLiked.length}
+            {userLiked?.length ?
+              <button className='like-btn'><img id='like-img' src={heartIcon} alt="" /></button>:
+              <button className='like-btn'><img id='unlike-img' src={heartIcon} alt="" /></button>
+            }
+          </form>
+        </div>
+        <div>
+          <EditDeleteVideo id={comments?.id} />
+        </div>
       </div>
       <div className='description-area-wrapper'>
         <div className='video-description'>
@@ -162,7 +215,7 @@ const SpecificVideo = () => {
         <div className="comment-list">
           {comments?.map((comment) => (
             <div key={comment?.id}>
-              <CommentComponent comment={comment} />
+              <CommentComponent comment={comment} likes={videoLiked} />
             </div>
           ))}
         </div>

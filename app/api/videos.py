@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Video, db, Comment
-from app.forms import VideoForm, CommentForm, EditCommentForm
+from app.models import Video, db, Comment, Like
+from app.forms import VideoForm, CommentForm, EditCommentForm, NewLike, DeleteLike
 
 from app.aws import delete_from_s3, upload_file_to_s3, allowed_file, get_unique_filename, delete_from_s3
 from sqlalchemy import desc, asc
@@ -15,6 +15,7 @@ def get_video(id):
 @video_routes.route('/popular')
 def get_popular():
     videos = Video.query
+    print('\n\n\n\n\n\nThis is videos bakcend \n\n\n', videos)
     videos = videos.order_by(Video.likes_count.desc()).all()
     return {
         'videos': [video.to_dict() for video in videos]
@@ -79,7 +80,7 @@ def delete_video(id):
     db.session.delete(deleted_video)
     db.session.commit()
     videos = Video.query.all()
-    
+
     return {"videos": [video.to_dict() for video in videos]}
 
 
@@ -142,3 +143,53 @@ def edit_comment(id):
 
     else:
         return "bad data in edit"
+
+# LIKES ROUTES
+
+@video_routes.route('/likes')
+def likes():
+    likes = Like.query.all()
+    return {"likes": [like.to_dict() for like in likes]}
+
+@video_routes.route('/likes', methods=["POST"])
+def add_like():
+    form = NewLike()
+    data = form.data
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        def hasLikes(video_id, user_id, data):
+            if(video_id == data['video_id'] and user_id == data['user_id']):
+                return True
+            return False
+
+        exist = Like.query.filter(hasLikes(Like.video_id, Like.user_id, data)).first()
+
+        if not exist:
+            new_like = Like(
+                video_id = data["video_id"],
+                user_id = data['user_id']
+            )
+        db.session.add(new_like)
+        db.session.commit()
+        likes = Like.query.all()
+        return {
+            "likes": [like.to_dict() for like in likes]
+        }
+    else:
+        return "Bad Data"
+
+@video_routes.route('/likes', methods=["DELETE"])
+def delete_like():
+    print('\n\n\nmade it here in likes\n\n\n')
+    form = DeleteLike()
+    data = form.data
+    print('this is data', data)
+    form['csrf_token'].data = request.cookies['csrf_token']
+    like = Like.query.filter(Like.id == data["like_id"]).first()
+
+    db.session.delete(like)
+    db.session.commit()
+
+    likes = Like.query.all()
+    return {"likes": [like.to_dict() for like in likes]}
